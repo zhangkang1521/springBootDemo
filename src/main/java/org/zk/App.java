@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 /**
+ * 项目启动入口
  * Created by zhangkang on 2017/6/15.
  */
 @SpringBootApplication
