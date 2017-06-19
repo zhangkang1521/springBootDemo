@@ -5,7 +5,7 @@
     <groupId>org.zk</groupId>
     <artifactId>springBootDemo</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>springBootDemo</name>
     <url>http://maven.apache.org</url>
@@ -53,6 +53,15 @@
 
     </dependencies>
 
+    <build>
+        <!-- 不指定该插件，打jar包时不会指定主类 -->
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 
 
