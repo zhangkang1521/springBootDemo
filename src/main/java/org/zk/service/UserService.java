@@ -4,8 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zk.dao.UserRepository;
 import org.zk.entity.User;
+
+import java.util.List;
 
 /**
  * Created by zhangkang on 2017/6/15.
@@ -27,5 +30,12 @@ public class UserService {
         User user = userRepository.findByUsername(username);
         logger.info("exist user, id:{}", user.getId());
         return user != null;
+    }
+
+    @Transactional
+    public void batchInsert(List<User> userList) {
+        for(User user:userList) {
+            userRepository.save(user);
+        }
     }
 }

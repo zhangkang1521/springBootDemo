@@ -1,10 +1,14 @@
 package org.zk.service;
 
+import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zk.entity.User;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -21,6 +25,18 @@ public class UserServiceTest {
     @Test
     public void existUsername() throws Exception {
         userService.existUsername("zk");
+    }
+
+    @Test
+    public void batchInsert() {
+        List<User> userList = Lists.newArrayList();
+        User user1 = new User();
+        user1.setUsername("aaa");
+        User user2 = new User();
+        user2.setUsername("111111111111111111111111111111111111111111111111111111111111111111111111111111111");
+        userList.add(user1);
+        userList.add(user2);
+        userService.batchInsert(userList);
     }
 
 }

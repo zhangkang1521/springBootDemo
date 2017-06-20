@@ -31,4 +31,11 @@ public class UserRepositoryTest {
         System.out.println(user.getUsername());
     }
 
+    @Test
+    public void save() {
+        User user = new User();
+        user.setUsername("test2");
+        userRepository.save(user);
+    }
+
 }

@@ -12,9 +12,13 @@
 
     <logger name ="org.springframework" level= "warn" />
     <logger name ="org.hibernate" level= "warn" />
+    <logger name ="org.hibernate.SQL" level="trace"  />
+    <logger name ="org.hibernate.type.descriptor.sql.BasicBinder" level="trace" />
+    <logger name ="org.hibernate.engine.transaction" level="debug" />
 
 
     <root level ="debug">
         <appender-ref ref ="CONSOLE" />
     </root >
+
 </configuration>
