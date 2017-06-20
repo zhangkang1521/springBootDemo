@@ -1,0 +1,12 @@
+server:
+  port: ${PORT:9999}
+  context-path: ${CONTEXTPATH:/spring-boot}
+
+spring:
+  profiles:
+    active: prod
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/zk?useUnicode=true&characterEncoding=utf8}
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASS:123456}
