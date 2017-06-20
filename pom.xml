@@ -53,6 +53,8 @@
 
     </dependencies>
 
+
+
     <build>
         <!-- 不指定该插件，打jar包时不会指定主类 -->
         <plugins>
@@ -62,6 +64,8 @@
             </plugin>
         </plugins>
     </build>
+
+
 
 
 

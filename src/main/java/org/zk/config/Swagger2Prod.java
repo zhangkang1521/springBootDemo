@@ -16,22 +16,22 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
-@Profile({"dev", "test"})
-public class Swagger2 {
+@Profile("prod")
+public class Swagger2Prod {
 
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("org.zk.controller"))
+                .apis(RequestHandlerSelectors.none())
                 .paths(PathSelectors.any())
                 .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Spring Boot项目swagger API")
+                .title("Spring Boot项目swagger API（生产环境）")
                 .contact("张康")
                 .version("1.0")
                 .build();
