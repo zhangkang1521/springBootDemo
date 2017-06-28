@@ -3,8 +3,12 @@ package org.zk.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.zk.commons.PageParam;
 import org.zk.dao.UserRepository;
 import org.zk.entity.User;
 
@@ -20,6 +24,10 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    public Page<User> queryPage(PageParam pageParam) {
+        return userRepository.findAll(pageParam.getPageable());
+    }
 
     public boolean existUsername(String username) {
         logger.trace("trace");
