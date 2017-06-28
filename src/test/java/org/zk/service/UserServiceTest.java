@@ -25,10 +25,7 @@ public class UserServiceTest {
     @Autowired
     UserService userService;
 
-    @Test
-    public void existUsername() throws Exception {
-        userService.existUsername("zk");
-    }
+
 
     @Test
     public void batchInsert() {
