@@ -1,6 +1,7 @@
 package org.zk.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +9,9 @@ import java.util.Date;
  */
 @Entity
 @Table(name="tb_user")
-public class User {
+public class User implements Serializable{
+    private static final long serialVersionUID = -4600785657894751836L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

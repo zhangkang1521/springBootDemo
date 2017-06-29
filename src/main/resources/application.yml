@@ -1,6 +1,8 @@
 server:
   port: ${PORT:9999}
   context-path: ${CONTEXTPATH:/spring-boot}
+  session:
+    timeout: 5
 
 spring:
   profiles:
@@ -10,3 +12,8 @@ spring:
     url: jdbc:mysql://localhost:3306/zk?useUnicode=true&characterEncoding=utf8
     username: root
     password: 123456
+  session:
+    store-type: redis
+  redis:
+    host: localhost
+    port: 6379

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.zk.commons.PageParam;
+import org.zk.commons.Result;
+import org.zk.controller.param.LoginParam;
 import org.zk.controller.param.UserParam;
 import org.zk.dao.UserRepository;
 import org.zk.entity.User;
@@ -34,6 +36,13 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    public Result<User> login(LoginParam loginParam){
+        User user = new User();
+        user.setId(1L);
+        user.setUsername("zk");
+        return Result.success(user);
+    }
 
     public Page<User> queryPage(final PageParam<UserParam> pageParam) {
         final UserParam user = pageParam.getParam();
