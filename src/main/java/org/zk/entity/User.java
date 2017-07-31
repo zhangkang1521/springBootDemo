@@ -21,6 +21,8 @@ public class User implements Serializable{
     private Integer age;
     @Column
     private Date birthday;
+    @Column(name = "nick_name")
+    private String nickName;
 
 
     public Long getId() {

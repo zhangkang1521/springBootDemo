@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zk.entity.User;
 
+import java.util.List;
+
 
 /**
  * Created by zhangkang on 2017/6/15.
@@ -35,6 +37,14 @@ public class UserRepositoryTest {
         User user = userRepository.findByUsername("zk");
         System.out.println(user.getId());
         System.out.println(user.getUsername());
+    }
+
+    @Test
+    public void findByUserNameOrAge() {
+//        List<User> list = userRepository.findByUsernameOrAge("zk", 18);
+//        List<User> list = userRepository.findByUsernameOrNickName("zk", "zy");
+        User user = userRepository.findFirstByUsernameOrderByAgeDesc("test2");
+        System.out.println(user.getAge());
     }
 
     @Test

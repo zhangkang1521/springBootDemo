@@ -2,6 +2,11 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml" />
 
+    <root level="ERROR">
+        <appender-ref ref="CONSOLE" />
+        <!--<appender-ref ref="FILE" />-->
+    </root>
+
     <logger name ="org.zk" level="debug" />
 
     <logger name ="org.hibernate.SQL" level="trace"  />
