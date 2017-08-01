@@ -1,2 +1,12 @@
 server:
   port: ${PORT:9999}
+
+spring:
+  data:
+    elasticsearch:
+      cluster-nodes: localhost:9300
+      cluster-name: elasticsearch
+      #使用内嵌elasticSearch
+#      properties:
+#          path:
+#            data: ./elasticsearch/data #elasticsearch数据存储目录
