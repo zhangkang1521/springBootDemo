@@ -4,10 +4,9 @@
 
     <root level="ERROR">
         <appender-ref ref="CONSOLE" />
-        <!--<appender-ref ref="FILE" />-->
+        <appender-ref ref="FILE" />
     </root>
 
     <logger name ="org.zk" level="debug" />
-
 
 </configuration>
