@@ -23,4 +23,10 @@ public class UserController {
         producer.send(msg);
         return "send!";
     }
+
+    @RequestMapping("/send2")
+    public String send2(String msg){
+        producer.send2(msg);
+        return "send2!";
+    }
 }

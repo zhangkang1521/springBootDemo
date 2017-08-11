@@ -21,7 +21,8 @@ public class Application {
 
     @Bean
     public Queue queue() {
-        return new ActiveMQQueue("sample.queue");
+        Queue queue = new ActiveMQQueue("sample.queue");
+        return queue;
     }
 
     public static void main(String[] args) throws Exception {
