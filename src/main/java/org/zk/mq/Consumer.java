@@ -21,6 +21,7 @@ public class Consumer {
         System.out.println("consumer received: "+text);
     }
 
+
     @JmsListener(destination = "foo")
     public void receiveQueue2(Message message) throws Exception{
         log.info("receive foo queue message: {}", message);
