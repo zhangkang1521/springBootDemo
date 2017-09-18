@@ -5,3 +5,9 @@ logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(%5p) %clr([%-40.40logger{39}]){cyan} %4L - %m%n'
 #  file: springBootDemo.log
+
+spring:
+  mail:
+    host: smtp.163.com
+    username: zhangkang_test@163.com
+    password: b111111
