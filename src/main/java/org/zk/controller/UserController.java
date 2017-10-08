@@ -15,7 +15,11 @@ public class UserController {
 
     @RequestMapping("/")
     public String index(){
-        logger.debug("xxx");
+        logger.trace("trace");
+        logger.debug("debug");
+        logger.info("info");
+        logger.warn("warn");
+        logger.error("error");
         return "hello";
     }
 }
