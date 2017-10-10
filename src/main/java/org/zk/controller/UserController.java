@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.zk.annotion.PermCheck;
 
 /**
  * Created by zhangkang on 2017/7/31.
@@ -21,5 +22,11 @@ public class UserController {
         logger.warn("warn");
         logger.error("error");
         return "hello";
+    }
+
+    @RequestMapping("/test")
+    @PermCheck
+    public String test(){
+        return "test";
     }
 }
