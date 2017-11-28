@@ -22,4 +22,16 @@ public class UserController {
         logger.error("error");
         return "hello";
     }
+
+    @RequestMapping("/test")
+    public String test(){
+        logger.info("test");
+        return "test";
+    }
+
+    @RequestMapping("/xxx")
+    public String xxx(){
+        logger.info("xxx");
+        return "xxx";
+    }
 }
