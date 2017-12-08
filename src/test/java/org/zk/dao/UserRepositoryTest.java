@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zk.entity.User;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -49,9 +50,14 @@ public class UserRepositoryTest {
 
     @Test
     public void save() {
-        User user = new User();
-        user.setUsername("test2");
-        userRepository.save(user);
+        for(int i=0; i<100; i++) {
+            User user = new User();
+            user.setUsername("test"+i);
+            user.setAge(20+i);
+            user.setBirthday(new Date());
+            userRepository.save(user);
+        }
+
     }
 
 }

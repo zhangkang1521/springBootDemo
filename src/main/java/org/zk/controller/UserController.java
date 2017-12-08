@@ -29,7 +29,12 @@ public class UserController {
 
     @ApiOperation(value="获取用户列表", notes="获取用户列表，后面还有很多说明")
     @PostMapping("/list")
-    public Result list(@RequestBody PageParam<UserParam> pageParam){
+    public Result list(@RequestBody PageParam<UserParam> pageParam) throws Exception {
+        if(pageParam.getPageNo() == 2) {
+            Thread.sleep(1000);
+        }
         return Result.success(userService.queryPage(pageParam));
+        //return Result.fail("错误！");
+//        throw new RuntimeException("xxx");
     }
 }
