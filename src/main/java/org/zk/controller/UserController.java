@@ -9,6 +9,7 @@ import org.zk.commons.PageParam;
 import org.zk.commons.Result;
 import org.zk.controller.param.UserParam;
 import org.zk.dao.UserRepository;
+import org.zk.entity.User;
 import org.zk.service.UserService;
 
 /**
@@ -27,14 +28,33 @@ public class UserController {
     UserService userService;
 
 
-    @ApiOperation(value="获取用户列表", notes="获取用户列表，后面还有很多说明")
-    @PostMapping("/list")
-    public Result list(@RequestBody PageParam<UserParam> pageParam) throws Exception {
-        if(pageParam.getPageNo() == 2) {
-            Thread.sleep(1000);
-        }
+    @ApiOperation(value="用户列表查询")
+    @PostMapping("/search")
+    public Result search(@RequestBody PageParam<UserParam> pageParam){
+//        if(pageParam.getPageNo() == 2) {
+//            Thread.sleep(1000);
+//        }
         return Result.success(userService.queryPage(pageParam));
         //return Result.fail("错误！");
 //        throw new RuntimeException("xxx");
+    }
+
+    @ApiOperation(value="查询单个用户")
+    @GetMapping("/{id}")
+    public Result findOne(@PathVariable("id") Long id) {
+        return Result.success(userService.findOne(id));
+    }
+
+    @ApiOperation(value="保存单个用户")
+    @PostMapping("")
+    public Result save(@RequestBody User user) {
+        return Result.success(userService.save(user));
+    }
+
+    @ApiOperation(value="删除单个用户")
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable("id") Long id) {
+        userService.delete(id);
+        return Result.success(null);
     }
 }

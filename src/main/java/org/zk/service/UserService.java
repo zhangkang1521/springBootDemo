@@ -65,7 +65,20 @@ public class UserService {
         return userRepository.findAll(spec, pageParam.getPageable());
     }
 
+    @Transactional
+    public User findOne(Long id) {
+        return userRepository.findOne(id);
+    }
 
+    @Transactional
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        userRepository.delete(id);
+    }
 
     @Transactional
     public void batchInsert(List<User> userList) {
