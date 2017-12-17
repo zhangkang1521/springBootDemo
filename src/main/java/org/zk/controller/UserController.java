@@ -5,8 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.zk.commons.PageParam;
 import org.zk.commons.Result;
+import org.zk.controller.param.FileParam;
 import org.zk.controller.param.UserParam;
 import org.zk.dao.UserRepository;
 import org.zk.entity.User;
@@ -55,6 +57,20 @@ public class UserController {
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable("id") Long id) {
         userService.delete(id);
+        return Result.success(null);
+    }
+
+    @ApiOperation(value="文件上传")
+    @PostMapping("/upload")
+    public Result upload(MultipartFile file) {
+        System.out.println(file.getOriginalFilename());
+        return Result.success(null);
+    }
+
+    @ApiOperation(value="文件上传2")
+    @PostMapping("/upload2")
+    public Result upload2(FileParam fileParam) {
+        System.out.println(fileParam.getMyFile().getOriginalFilename());
         return Result.success(null);
     }
 }
