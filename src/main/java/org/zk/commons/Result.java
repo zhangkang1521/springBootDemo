@@ -7,7 +7,7 @@ package org.zk.commons;
 public class Result<T> {
     private boolean success;
     private String message;
-    private T data;
+    private T body;
 
     /**
      * 成功消息
@@ -21,9 +21,9 @@ public class Result<T> {
         this.message = message;
     }
 
-    public Result(boolean success, String message, T data) {
+    public Result(boolean success, String message, T body) {
         this(success, message);
-        this.data = data;
+        this.body = body;
     }
 
     /**
@@ -61,11 +61,11 @@ public class Result<T> {
         this.message = message;
     }
 
-    public T getData() {
-        return data;
+    public T getBody() {
+        return body;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public void setBody(T body) {
+        this.body = body;
     }
 }

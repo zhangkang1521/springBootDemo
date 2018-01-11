@@ -28,7 +28,7 @@ public class LoginController {
     public Result login(LoginParam loginParam) {
         Result<User> result = userService.login(loginParam);
         if(result.isSuccess()) {
-            User user = result.getData();
+            User user = result.getBody();
             session.setAttribute(session.getId(), user);
         }
         return result;
