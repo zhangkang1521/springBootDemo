@@ -12,3 +12,6 @@ spring:
     url: jdbc:mysql://localhost:3306/zk?useUnicode=true&characterEncoding=utf8
     username: root
     password: 123456
+sas:
+  queue:
+    name: ${SAS.QUEUE.GENERIC:ActiveMQ.FINANCE.SAS}
