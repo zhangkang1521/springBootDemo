@@ -22,6 +22,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -85,5 +86,17 @@ public class UserService {
         for(User user:userList) {
             userRepository.save(user);
         }
+    }
+
+    @Transactional
+    public void read() {
+        User user = new User();
+        user.setUsername("zz");
+        user.setAge(10);
+        userRepository.save(user);
+        int count = userRepository.countAll();
+        BigDecimal sumAge = userRepository.sumAge();
+        System.out.println(count);
+        System.out.println(sumAge);
     }
 }

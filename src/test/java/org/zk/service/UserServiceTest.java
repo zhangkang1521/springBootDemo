@@ -39,4 +39,12 @@ public class UserServiceTest {
         userService.batchInsert(userList);
     }
 
+    /**
+     * 验证自己写入的东西，能读到
+     */
+    @Test
+    public void testRead() {
+        userService.read();
+    }
+
 }

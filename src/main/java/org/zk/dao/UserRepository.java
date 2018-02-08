@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.zk.entity.User;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -22,5 +23,11 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     // 还可以加前缀: findTop10 findFirst10
     User findFirstByUsernameOrderByAgeDesc(String username);
+
+    @Query("select COALESCE(count(*), 0) from User u")
+    int countAll();
+
+    @Query("select sum(age) from User u")
+    BigDecimal sumAge();
 
 }
