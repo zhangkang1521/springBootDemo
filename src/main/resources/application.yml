@@ -5,3 +5,7 @@ logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(%5p) %clr([%-40.40logger{39}]){cyan} %4L - %m%n'
 #  file: springBootDemo.log
+
+gcb:
+  url: http://10.113.1.58:9528/CGBClient/BankAction
+  cifMaster: 1000194691
