@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -11,12 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.RestTemplate;
 import org.zk.cgb.*;
+import org.zk.entity.Result;
 import org.zk.entity.User;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * Created by zhangkang on 2017/7/31.
@@ -32,29 +34,25 @@ public class UserController {
 
     @PostMapping("/1")
     @ResponseBody
-    public User index(@RequestBody User user){
-//        User user = new User();
-//        user.setId(100);
-//        user.setUsername("zk");
-        user.setUsername(user.getUsername() + "hh");
+    public User index(@RequestBody User u){
+        User user = new User();
+        user.setId(100);
+        user.setUsername("张康");
+//        user.setUsername(user.getUsername() + "hh");
         return user;
     }
 
     @GetMapping("/test")
     public void test() {
-        String url = "http://localhost:9999/user/1";
-//        ResponseEntity<User> resp = restTemplate.getForEntity("http://localhost:9999/user/1", User.class);
-//        System.out.println(resp);
+        String url = "http://www.baidu.com";
         HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
-        headers.setContentType(MediaType.APPLICATION_XML);
+        MediaType type = MediaType.parseMediaType("application/xml; charset=GBK");
+        headers.setContentType(type);
+        headers.add("Accept", "application/json;charset=GBK");
         User user = new User();
-        user.setId(100);
-        user.setUsername("zk");
-        HttpEntity<User> requestEntity = new HttpEntity<User>(user, headers);
-
-        ResponseEntity<User> resp = restTemplate.exchange(url, HttpMethod.POST, requestEntity, User.class);
-        System.out.println(resp);
+        user.setUsername("张康");
+        HttpEntity<User> formEntity = new HttpEntity<User>(user, headers);
+        String result = restTemplate.postForObject("http://www.baidu.com", formEntity, String.class);
     }
 
     @GetMapping("/cgb")
@@ -80,6 +78,40 @@ public class UserController {
         System.out.println(resp.getBody().getMessage().getBody());
         return "ok";
     }
+
+    @GetMapping("list")
+    @ResponseBody
+    public BEDC<User> list() {
+        List<User> list = new ArrayList<>();
+        for (int i=0; i<3; i++) {
+            User user = new User();
+            user.setId(10);
+            user.setUsername("zk" + i);
+            list.add(user);
+        }
+        BEDC<User> bedc = new BEDC<>();
+        Message<User> message = new Message<>();
+        CommHead commHead = new CommHead();
+        bedc.setMessage(message);
+        message.setCommHead(commHead);
+        User user = new User();
+        user.setId(100);
+        user.setUsername("zk");
+        message.setBody(user);
+        return bedc;
+    }
+
+    @GetMapping("listTest")
+    @ResponseBody
+    public String test2() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_XML);
+        HttpEntity requestEntity = new HttpEntity("", headers);
+        ResponseEntity<BEDC<User>> resp = restTemplate.exchange("http://localhost:9999/user/list", HttpMethod.GET, requestEntity, new ParameterizedTypeReference<BEDC<User>>(){});
+        System.out.println(resp);
+        return "ok";
+    }
+
 
 
 
