@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>webSocket broadcast</title>
+    <script th:src="@{js/sockjs.min.js}"></script>
+    <script th:src="@{js/stomp.js}"></script>
+    <script th:src="@{js/jquery-1.7.1.min.js}"></script>
+</head>
+<body>
+    <button onclick="connect()" id="connect">connect</button>
+    <input type="text" id="msg"/>
+    <button onclick="send()">send</button>
+    <div id="response"></div>
+</body>
+<script>
+    var stompClient = null;
+
+    function connect() {
+        var socket = new SockJS('/endpoint');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log('已连接：' + frame);
+            $("#connect").attr("disabled", "disabled")
+            stompClient.subscribe('/topic/getResponse', function (response) {
+                console.log(response);
+                showResponse(JSON.parse(response.body).responseMessage);
+            })
+        });
+    }
+    
+    function send() {
+        var msg = $("#msg").val();
+        stompClient.send('/welcome', {}, JSON.stringify({'name': msg}));
+    }
+
+    function showResponse(data) {
+        $("#response").append(data + "<br/>");
+    }
+
+</script>
+</html>
