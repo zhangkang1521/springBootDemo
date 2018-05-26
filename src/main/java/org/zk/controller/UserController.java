@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zk.config.PrivConfig;
+import org.zk.properties.CcbProp;
 
 /**
  * Created by zhangkang on 2017/7/31.
@@ -21,10 +22,15 @@ public class UserController {
 
     @Autowired
     private PrivConfig privConfig;
+    @Autowired
+    private CcbProp ccbProp;
+
+    @Value("${ccb.url}")
+    private String ccbUrl;
 
     @RequestMapping("/")
     public String index(){
-        logger.trace(gcbUrl);
+         logger.trace(gcbUrl);
         logger.debug("debug");
         logger.info("info");
         logger.warn("warn");

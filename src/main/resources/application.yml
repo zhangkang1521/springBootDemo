@@ -9,3 +9,6 @@ logging:
 gcb:
   url: http://10.113.1.58:9528/CGBClient/BankAction
   cifMaster: 1000194691
+ccb:
+    url: http://10.113.1.58:12345
+    accNo: 2334045045656
