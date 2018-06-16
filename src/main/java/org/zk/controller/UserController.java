@@ -1,6 +1,5 @@
 package org.zk.controller;
 
-import org.jboss.logging.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +17,7 @@ public class UserController {
     // 寻找合适的HttpMessageConverter进行转换
     @PostMapping("/requestBody")
     public void requestBody(@RequestBody User user){
+
 
     }
 

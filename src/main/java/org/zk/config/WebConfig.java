@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.zk.domain.GenericBigDecimalConverter;
 import org.zk.domain.MyMessageConvert;
 import org.zk.domain.StringUserConvert;
 
@@ -19,6 +20,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new StringUserConvert());
+//        registry.addConverter(new GenericBigDecimalConverter());
     }
 
     @Override
