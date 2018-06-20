@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.zk.domain.User;
 
+import java.util.Date;
+
 /**
  * Created by zhangkang on 2017/7/31.
  */
@@ -23,8 +25,8 @@ public class UserController {
 
     // RequestParamMethodArgumentResolver
     @PostMapping("/requestParam")
-    public void requestParam(@RequestParam("user") User user){
-
+    public User requestParam(@RequestParam("user") User user){
+        return user;
     }
 
     // ServletModelAttributeMethodProcessor
@@ -37,5 +39,10 @@ public class UserController {
     @PostMapping("/nonePrimary")
     public void nonePrimary(Integer id){
 
+    }
+
+    @RequestMapping("date")
+    public Date dateTest(@RequestParam("date") Date date) {
+        return date;
     }
 }
