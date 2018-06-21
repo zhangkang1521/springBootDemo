@@ -6,5 +6,5 @@ logging:
     console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(%5p) %clr([%-40.40logger{39}]){cyan} %4L - %m%n'
 #  file: springBootDemo.log
 author:
-  name: zk
+  name: ${NAME:zk} # java -jar springBootDemo-1.0-SNAPSHOT.jar --spring.config.location=E:/test.properties
   age: 26

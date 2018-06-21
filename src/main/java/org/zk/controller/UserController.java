@@ -22,7 +22,6 @@ public class UserController {
 
     @RequestMapping("/")
     public String index(){
-        System.out.println(authorSetting);
-        return "hello";
+        return authorSetting.getName();
     }
 }
