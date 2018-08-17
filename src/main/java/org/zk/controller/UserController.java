@@ -26,7 +26,12 @@ public class UserController {
 
     @RequestMapping("/send2")
     public String send2(String msg){
-        producer.send2(msg);
+        for (int i = 0; i<100; i++) {
+            producer.send2("foo", "foo1-" + i);
+            if (i % 10 == 0) {
+                producer.send2("foo2", "foo2-"+i);
+            }
+        }
         return "send2!";
     }
 }

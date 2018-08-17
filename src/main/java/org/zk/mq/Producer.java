@@ -29,11 +29,11 @@ public class Producer /*implements CommandLineRunner*/ {
         this.jmsMessagingTemplate.convertAndSend(this.queue, msg);
     }
 
-    public void send2(String msg) {
+    public void send2(String dest, String msg) {
         Map<String, Object> header = new HashMap<String,Object>();
         header.put("a", "AAA");
         header.put("b", "BBB");
-        jmsMessagingTemplate.convertAndSend("foo", msg, header);
+        jmsMessagingTemplate.convertAndSend(dest, msg, header);
     }
 
 }
