@@ -1,5 +1,8 @@
 package org.zk.repository;
 
+import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.action.get.MultiGetResponse;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;
@@ -8,12 +11,24 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.EntityMapper;
+import org.springframework.data.elasticsearch.core.ResultsMapper;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.CollectionUtils;
 import org.zk.domain.Article;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
+import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 import static org.junit.Assert.*;
 
 /**
@@ -25,13 +40,18 @@ public class ArticleSearchRepositoryTest {
     @Autowired
     ArticleSearchRepository repository;
 
+    @Autowired
+    ElasticsearchTemplate elasticsearchTemplate;
+
     @Test
     public void testSave(){
-        Article article = new Article();
-        article.setId(44L);
-        article.setTitle("射雕英雄传");
-        article.setContent("射雕英雄传xx");
-        repository.save(article);
+        for (int i=5; i<10; i++) {
+            Article article = new Article();
+//        article.setId(44L);
+            article.setTitle("test"+i);
+            article.setContent("test"+i);
+            repository.save(article);
+        }
     }
 
     @Test
@@ -56,6 +76,34 @@ public class ArticleSearchRepositoryTest {
             Article article = iterator.next();
             System.out.println(article);
         }
+    }
+
+    @Test
+    public void testScroll() {
+        SearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withQuery(matchAllQuery())
+                .withIndices("zk")
+                .withTypes("article")
+                .withPageable(new PageRequest(0, 1))
+                .build();
+        String scrollId = elasticsearchTemplate.scan(searchQuery, 1000, false);
+        boolean hasRecord = true;
+        int i = 0;
+        while (hasRecord) {
+            Page<Article> page = elasticsearchTemplate.scroll(scrollId, 5000L, Article.class);
+
+            List<Article> list = page.getContent();
+            if (!CollectionUtils.isEmpty(list)) {
+                System.out.println("==== " + (++i) * list.size() +"/"+page.getTotalElements());
+                for (Article article : list) {
+                    System.out.println(article.getTitle());
+                }
+                hasRecord = true;
+            } else {
+                hasRecord = false;
+            }
+        }
+
     }
 
 }
