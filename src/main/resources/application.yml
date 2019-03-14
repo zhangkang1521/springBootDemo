@@ -5,3 +5,14 @@ logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(%5p) %clr([%-40.40logger{39}]){cyan} %4L - %m%n'
 #  file: springBootDemo.log
+
+dubbo:
+  application:
+    name: zhangkang
+  protocol:
+    name: dubbo
+    port: 20881
+  registry:
+    address: zookeeper://localhost:2181
+  scan:
+    base-packages: org.zk.service
