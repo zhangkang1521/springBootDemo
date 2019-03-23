@@ -21,17 +21,6 @@ import javax.jms.Topic;
 @EnableJms
 public class Application {
 
-    @Bean
-    public Queue queue() {
-        Queue queue = new ActiveMQQueue("sample.queue");
-        return queue;
-    }
-
-    @Bean
-    public Topic topic() {
-        Topic topic = new ActiveMQTopic("myTopic");
-        return topic;
-    }
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);

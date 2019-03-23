@@ -17,27 +17,17 @@ public class Consumer {
 
     private static final Logger log = LoggerFactory.getLogger(Consumer.class);
 
-    @JmsListener(destination = "sample.queue")
-    public void receiveQueue(String text) {
-        System.out.println("consumer received: "+text);
-    }
-
-
-//    @JmsListener(destination = "foo")
-    @JmsListeners ( value=
-            {@JmsListener(destination =  "foo"),
-            @JmsListener(destination = "foo2")}
-    )
-    public void receiveQueue2(Message message) throws Exception {
-        Thread.sleep(500);
-        if (message instanceof TextMessage) {
-            log.info("receive text message: {}", ((TextMessage) message).getText());
+    @JmsListener(destination = "HelloWorldQueue")
+    public void receiveQueue(Message text)  {
+        log.info("receive start,content {}", text);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-//        Enumeration<?> enumeration = message.getPropertyNames();
-//        while(enumeration.hasMoreElements()) {
-//            String key = enumeration.nextElement().toString();
-//            Object value = message.getObjectProperty(key);
-//            log.info("{}:{}", key, value);
-//        }
+        log.info("receive end");
     }
+
+
+
 }
