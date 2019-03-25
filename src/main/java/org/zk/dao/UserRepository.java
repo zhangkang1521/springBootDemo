@@ -16,18 +16,21 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
-    User findByUsername(String username);
+    @Query("select u from User u where u.id in(?1)")
+    List<User> findByIdIn(List<Long> ids);
 
-    // 参数按顺序排列即可
-    List<User> findByUsernameOrAge(String username, Integer age);
-
-    // 还可以加前缀: findTop10 findFirst10
-    User findFirstByUsernameOrderByAgeDesc(String username);
-
-    @Query("select COALESCE(count(*), 0) from User u")
-    int countAll();
-
-    @Query("select sum(age) from User u")
-    BigDecimal sumAge();
+//    User findByUsername(String username);
+//
+//    // 参数按顺序排列即可
+//    List<User> findByUsernameOrAge(String username, Integer age);
+//
+//    // 还可以加前缀: findTop10 findFirst10
+//    User findFirstByUsernameOrderByAgeDesc(String username);
+//
+//    @Query("select COALESCE(count(*), 0) from User u")
+//    int countAll();
+//
+//    @Query("select sum(age) from User u")
+//    BigDecimal sumAge();
 
 }

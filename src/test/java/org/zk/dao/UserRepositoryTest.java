@@ -1,5 +1,6 @@
 package org.zk.dao;
 
+import org.hibernate.internal.util.collections.BoundedConcurrentHashMap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zk.entity.User;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -26,38 +29,48 @@ public class UserRepositoryTest {
     UserRepository userRepository;
 
     @Test
-    public void findAll(){
-//        System.out.println(userRepository.findAll());
-        Pageable pageable = new PageRequest(0, 10);
-        Page<User> page = userRepository.findAll(pageable);
-        System.out.println(page.getTotalElements());
-    }
-
-    @Test
-    public void findByUsername() {
-        User user = userRepository.findByUsername("zk");
-        System.out.println(user.getId());
-        System.out.println(user.getUsername());
-    }
-
-    @Test
-    public void findByUserNameOrAge() {
-//        List<User> list = userRepository.findByUsernameOrAge("zk", 18);
-//        List<User> list = userRepository.findByUsernameOrNickName("zk", "zy");
-        User user = userRepository.findFirstByUsernameOrderByAgeDesc("test2");
-        System.out.println(user.getAge());
-    }
-
-    @Test
-    public void save() {
-        for(int i=0; i<100; i++) {
-            User user = new User();
-            user.setUsername("test"+i);
-            user.setAge(20+i);
-            user.setBirthday(new Date());
-            userRepository.save(user);
+    public void testFindIn() {
+        List<Long> ids = new ArrayList<Long>();
+        for (int i = 0; i < 100; i ++) {
+            ids.add((long)i);
+            userRepository.findByIdIn(ids);
         }
-
     }
+
+
+//    @Test
+//    public void findAll(){
+////        System.out.println(userRepository.findAll());
+//        Pageable pageable = new PageRequest(0, 10);
+//        Page<User> page = userRepository.findAll(pageable);
+//        System.out.println(page.getTotalElements());
+//    }
+//
+//    @Test
+//    public void findByUsername() {
+//        User user = userRepository.findByUsername("zk");
+//        System.out.println(user.getId());
+//        System.out.println(user.getUsername());
+//    }
+//
+//    @Test
+//    public void findByUserNameOrAge() {
+////        List<User> list = userRepository.findByUsernameOrAge("zk", 18);
+////        List<User> list = userRepository.findByUsernameOrNickName("zk", "zy");
+//        User user = userRepository.findFirstByUsernameOrderByAgeDesc("test2");
+//        System.out.println(user.getAge());
+//    }
+//
+//    @Test
+//    public void save() {
+//        for(int i=0; i<100; i++) {
+//            User user = new User();
+//            user.setUsername("test"+i);
+//            user.setAge(20+i);
+//            user.setBirthday(new Date());
+//            userRepository.save(user);
+//        }
+//
+//    }
 
 }

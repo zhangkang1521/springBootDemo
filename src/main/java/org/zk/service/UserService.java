@@ -90,13 +90,13 @@ public class UserService {
 
     @Transactional
     public void read() {
-        User user = new User();
-        user.setUsername("zz");
-        user.setAge(10);
-        userRepository.save(user);
-        int count = userRepository.countAll();
-        BigDecimal sumAge = userRepository.sumAge();
-        System.out.println(count);
-        System.out.println(sumAge);
+//        User user = new User();
+//        user.setUsername("zz");
+//        user.setAge(10);
+//        userRepository.save(user);
+//        int count = userRepository.countAll();
+//        BigDecimal sumAge = userRepository.sumAge();
+//        System.out.println(count);
+//        System.out.println(sumAge);
     }
 }
