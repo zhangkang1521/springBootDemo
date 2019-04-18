@@ -33,7 +33,7 @@ public class UserServiceTest {
         User user1 = new User();
         user1.setUsername("aaa");
         User user2 = new User();
-        user2.setUsername("111111111111111111111111111111111111111111111111111111111111111111111111111111111");
+        user2.setUsername("111");
         userList.add(user1);
         userList.add(user2);
         userService.batchInsert(userList);
@@ -45,6 +45,11 @@ public class UserServiceTest {
     @Test
     public void testRead() {
         userService.read();
+    }
+
+    @Test
+    public void testTran() {
+        userService.testTran();
     }
 
 }

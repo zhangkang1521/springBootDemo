@@ -3,6 +3,7 @@ package org.zk.service;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -98,5 +99,18 @@ public class UserService {
 //        BigDecimal sumAge = userRepository.sumAge();
 //        System.out.println(count);
 //        System.out.println(sumAge);
+    }
+
+    
+    public void testTran() {
+        (UserService)AopContext.currentProxy().doTestTran();
+    }
+
+	@Transactional
+    public void doTestTran() {
+        User user = new User();
+        user.setUsername("zk3");
+        userRepository.save(user);
+        throw new RuntimeException("xx");
     }
 }
