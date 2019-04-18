@@ -34,6 +34,9 @@ import java.util.List;
 @Service
 public class UserService {
 
+    @Autowired
+    UserService userService;
+
     private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
@@ -103,13 +106,14 @@ public class UserService {
 
     
     public void testTran() {
-        (UserService)AopContext.currentProxy().doTestTran();
+        userService.doTestTran();
+//        this.doTestTran();
     }
 
 	@Transactional
     public void doTestTran() {
         User user = new User();
-        user.setUsername("zk3");
+        user.setUsername("zk4");
         userRepository.save(user);
         throw new RuntimeException("xx");
     }
