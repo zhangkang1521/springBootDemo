@@ -27,7 +27,7 @@ public class JmsConfig {
 			DefaultJmsListenerContainerFactoryConfigurer configurer) {
 		DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
 		factory.setMessageConverter(jacksonJmsMessageConverter());
-		factory.setConcurrency("3-10");
+		factory.setConcurrency("2");
 		configurer.configure(factory, connectionFactory);
 		return factory;
 	}
