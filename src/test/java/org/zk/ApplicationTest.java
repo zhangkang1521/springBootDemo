@@ -14,6 +14,6 @@ public class ApplicationTest {
 
     @Test
     public void test1() {
-        System.out.println("hello");
+
     }
 }
