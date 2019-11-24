@@ -1,5 +1,6 @@
 package org.zk.dao;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.zk.model.User;
 
@@ -13,4 +14,7 @@ public interface UserDao {
     User findById(@Param("id") Integer id);
 
     List<User> findList();
+
+    @Insert("insert into tb_user(username) values(#{username})")
+    void insert(User user);
 }
