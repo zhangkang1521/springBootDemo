@@ -9,10 +9,10 @@ import org.zk.model.User;
 @Service
 public class UserService {
 
-    @Autowired
+//    @Autowired
     private UserDao userDao;
 
-    @Autowired
+//    @Autowired
     private UserService2 userService2;
 
     @Transactional

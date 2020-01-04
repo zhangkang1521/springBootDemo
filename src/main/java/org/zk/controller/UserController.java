@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    @Autowired
+//    @Autowired
     UserDao userDao;
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);

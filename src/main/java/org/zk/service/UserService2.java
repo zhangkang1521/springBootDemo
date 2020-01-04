@@ -10,7 +10,7 @@ import org.zk.model.User;
 @Service
 public class UserService2 {
 
-    @Autowired
+//    @Autowired
     private UserDao userDao;
 
     @Transactional(propagation = Propagation.NESTED)
