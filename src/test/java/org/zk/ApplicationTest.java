@@ -14,6 +14,10 @@ public class ApplicationTest {
 
     @Test
     public void test1() {
-        System.out.println("hello");
+       String a = "abc";
+       String b = "ab" + "c";
+       String c = "abc" + "";
+        System.out.println(a == b);
+        System.out.println(b == c);
     }
 }
