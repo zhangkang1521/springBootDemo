@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.zk.domain.User;
+import org.zk.enums.UserStatus;
 
 import java.util.List;
 
@@ -23,16 +24,15 @@ public class UserDaoTest {
 
     @Test
     public void testSelect() {
-        List<User> userList = userDao.selectList(null);
+        User user = userDao.selectById(1);
     }
 
     @Test
     public void save() {
-        for (int i = 0; i < 2000; i++) {
-            User user = new User();
-            user.setUsername("zk" + i);
-            userDao.insert(user);
-        }
+        User user = new User();
+        user.setUsername("zk");
+        user.setStatus(UserStatus.AUDIT_PASS);
+        userDao.insert(user);
     }
 
 }
