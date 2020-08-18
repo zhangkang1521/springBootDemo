@@ -18,11 +18,8 @@ public class User implements Serializable{
     @Column
     private String username;
     @Column
-    private Integer age;
-    @Column
     private Date birthday;
-    @Column(name = "nick_name")
-    private String nickName;
+
 
 
     public Long getId() {
@@ -39,14 +36,6 @@ public class User implements Serializable{
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
     }
 
     public Date getBirthday() {

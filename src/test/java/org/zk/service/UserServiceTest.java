@@ -47,9 +47,6 @@ public class UserServiceTest {
         userService.read();
     }
 
-    @Test
-    public void testTran() {
-        userService.testTran();
-    }
+
 
 }

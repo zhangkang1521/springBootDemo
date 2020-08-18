@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.zk.commons.PageParam;
@@ -104,17 +105,26 @@ public class UserService {
 //        System.out.println(sumAge);
     }
 
-    
-    public void testTran() {
-        userService.doTestTran();
-//        this.doTestTran();
-    }
 
-	@Transactional
-    public void doTestTran() {
+
+
+    // https://zhuanlan.zhihu.com/p/148504094
+    //	@Transactional
+//	@Transactional(propagation = Propagation.NEVER) // 当前存在事务则抛出异常
+//  @Transactional(propagation = Propagation.MANDATORY) // 当前没有事务则抛出异常
+//	@Transactional(propagation = Propagation.REQUIRES_NEW) // 挂起存在的事务，创建一个新的事务，上层方法抛出异常不会影响本方法的事务提交
+//	@Transactional(propagation = Propagation.NESTED) // 嵌套事务，上层方法抛出异常，本方法事务会回滚
+//	@Transactional(propagation = Propagation.NOT_SUPPORTED) // 不论当前是否存在事务，本方法都会以非事务的方式运行。
+//	@Transactional(propagation = Propagation.SUPPORTS) // 当前有事务则加入当前事务，没有则以非事务方式运行
+    public void f2() {
         User user = new User();
-        user.setUsername("zk4");
+        user.setUsername("f2-1");
         userRepository.save(user);
-        throw new RuntimeException("xx");
+        if (true) {
+            throw new RuntimeException("xxx");
+        }
+        User user2 = new User();
+        user2.setUsername("f2-2");
+        userRepository.save(user2);
     }
 }
