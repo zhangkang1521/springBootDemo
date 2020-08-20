@@ -13,6 +13,6 @@ dubbo:
     name: dubbo
     port: 20882
   registry:
-    address: zookeeper://localhost:2181
+    address: zookeeper://10.200.4.74:2181
   scan:
     base-packages: org.zk.service
