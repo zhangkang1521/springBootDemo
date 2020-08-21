@@ -22,21 +22,21 @@ import javax.jms.ConnectionFactory;
 @Configuration
 public class JmsConfig {
 
-	@Bean
-	public JmsListenerContainerFactory<?> jmsListenerContainerFactory(ConnectionFactory connectionFactory,
-			DefaultJmsListenerContainerFactoryConfigurer configurer) {
-		DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-		factory.setMessageConverter(jacksonJmsMessageConverter());
-		factory.setConcurrency("2");
-		configurer.configure(factory, connectionFactory);
-		return factory;
-	}
-	
-	@Bean
-	public MessageConverter jacksonJmsMessageConverter() {
-		MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-		converter.setTargetType(MessageType.TEXT);
-		converter.setTypeIdPropertyName("_type");
-		return converter;
-	}
+//	@Bean
+//	public JmsListenerContainerFactory<?> jmsListenerContainerFactory(ConnectionFactory connectionFactory,
+//			DefaultJmsListenerContainerFactoryConfigurer configurer) {
+//		DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+//		factory.setMessageConverter(jacksonJmsMessageConverter());
+//		factory.setConcurrency("2");
+//		configurer.configure(factory, connectionFactory);
+//		return factory;
+//	}
+//
+//	@Bean
+//	public MessageConverter jacksonJmsMessageConverter() {
+//		MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
+//		converter.setTargetType(MessageType.TEXT);
+//		converter.setTypeIdPropertyName("_type");
+//		return converter;
+//	}
 }
