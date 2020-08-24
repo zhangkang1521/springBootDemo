@@ -28,8 +28,8 @@ public class ActiveMqTest {
 	@Test
 	public void testSend() {
 		Map<String, Object> msgHeaders = new HashMap<String, Object>();
-		msgHeaders.put("eventType", "SUPPLIER_ORDER_REFUNDED_MSG");
-		jmsMessagingTemplate.convertAndSend("ActiveMQ.FINANCE", "{1}", msgHeaders);
+		msgHeaders.put("eventType", "SUPPLIER_ORDER_CANCEL_MSG");
+		jmsMessagingTemplate.convertAndSend("ActiveMQ.FINANCE", "abc", msgHeaders);
 	}
 
 	@Test
