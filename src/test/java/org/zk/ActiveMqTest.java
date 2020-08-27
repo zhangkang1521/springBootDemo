@@ -1,5 +1,6 @@
 package org.zk;
 
+import org.apache.activemq.ActiveMQConnectionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.jms.JMSException;
-import javax.jms.Session;
-import javax.jms.TextMessage;
+import javax.jms.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,8 +27,8 @@ public class ActiveMqTest {
 	@Test
 	public void testSend() {
 		Map<String, Object> msgHeaders = new HashMap<String, Object>();
-		msgHeaders.put("eventType", "SUPPLIER_ORDER_CANCEL_MSG");
-		jmsMessagingTemplate.convertAndSend("ActiveMQ.FINANCE", "abc", msgHeaders);
+		msgHeaders.put("eventType", "DISTRIBUTOR_MODIFY_MERCHANT_ORDERID_MSG");
+		jmsMessagingTemplate.convertAndSend("ActiveMQ.FINANCE", "123", msgHeaders);
 	}
 
 	@Test
@@ -42,5 +41,24 @@ public class ActiveMqTest {
 				return textMessage;
 			}
 		});
+	}
+
+	@Test
+	public void testSimple() throws Exception {
+		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
+		Connection connection = connectionFactory.createConnection();
+		connection.start();
+		Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
+
+		Destination queue = session.createQueue("ActiveMQ.FINANCE");
+		MessageProducer messageProducer = session.createProducer(queue);
+		TextMessage textMessage = session.createTextMessage("hello");
+		textMessage.setStringProperty("eventType",  "SUPPLIER_ORDER_PAYMENT_MSG");
+
+		messageProducer.send(textMessage);
+		session.commit();
+
+		messageProducer.close();
+		connection.close();
 	}
 }
