@@ -1,7 +1,12 @@
 package org.zk;
 
 import com.joyuai.finance.distributor.api.IBillService;
+import com.joyuai.finance.distributor.api.IReconRuleService;
+import com.joyuai.finance.distributor.api.IReconService;
 import com.joyuai.finance.distributor.api.vo.Result;
+import com.joyuai.finance.invoice.api.IInvoiceRemoteService;
+import com.joyuai.finance.invoice.api.consts.PurchaseWay;
+import com.joyuai.finance.invoice.api.param.ApplyInvoiceParam;
 import org.apache.dubbo.config.annotation.Reference;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +26,9 @@ public class ApplicationTest {
 
     @Reference
     IBillService billService;
+    @Reference
+    IReconService iReconService;
+
 
     @Test
     public void test1() throws Exception {
@@ -31,4 +39,12 @@ public class ApplicationTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void test2() {
+       Result result = iReconService.findBillReconRuleVo(10129L);
+        System.out.println(result);
+    }
+
+
 }

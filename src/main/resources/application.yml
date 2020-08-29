@@ -16,3 +16,6 @@ dubbo:
     address: zookeeper://10.200.4.74:2181
   scan:
     base-packages: org.zk.service
+  consumer:
+    retries: 0
+    timeout: 60000000
