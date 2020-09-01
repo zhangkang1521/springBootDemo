@@ -1,2 +1,5 @@
 server:
   port: 9999
+spring:
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss # string -> Date 转换格式
