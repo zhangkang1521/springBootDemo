@@ -40,7 +40,7 @@ public class InvoiceTest {
 
 	@Test
 	public void test5() {
-		List<String> contents = invoiceRemoteService.getInvoiceContentsByCategoryId(1L);
-		System.out.println(contents);
+		//List<String> contents = invoiceRemoteService.getInvoiceContentsByCategoryId(1L);
+		// System.out.println(contents);
 	}
 }

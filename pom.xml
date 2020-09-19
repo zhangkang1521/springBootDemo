@@ -74,6 +74,28 @@
             <artifactId>finance-invoice-api</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.lvmama.order</groupId>
+            <artifactId>lvmm-order-service-api-exp</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.joyuai.ticket</groupId>-->
+            <!--<artifactId>ticket-api</artifactId>-->
+            <!--<version>0.0.1-SNAPSHOT</version>-->
+            <!--&lt;!&ndash;<exclusions>&ndash;&gt;-->
+                <!--&lt;!&ndash;<exclusion>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<groupId>*</groupId>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<artifactId>*</artifactId>&ndash;&gt;-->
+                <!--&lt;!&ndash;</exclusion>&ndash;&gt;-->
+            <!--&lt;!&ndash;</exclusions>&ndash;&gt;-->
+        <!--</dependency>-->
+
+      <!--  <dependency>
+            <groupId>com.joyuai.vacation</groupId>
+            <artifactId>vacation-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>-->
     </dependencies>
 
     <build>
