@@ -8,6 +8,8 @@ import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
@@ -18,6 +20,12 @@ import org.elasticsearch.common.unit.ByteSizeValue;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.ConstantScoreQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.RangeQueryBuilder;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.junit.After;
 import org.junit.Before;
@@ -139,6 +147,25 @@ public class TransportApiTest {
 			bulkProcessor.add(new IndexRequest(index, type).source("{\"id\": " + i + "}", XContentType.JSON));
 		}
 
+	}
+
+	@Test
+	public void testQuery() {
+		BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+		RangeQueryBuilder rangeQuery = QueryBuilders.rangeQuery("timestampInMillis");
+		rangeQuery.gte(1600617600000L);
+		rangeQuery.lte(1600703999000L);
+		boolQueryBuilder.filter(rangeQuery);
+		ConstantScoreQueryBuilder constantScoreQueryBuilder = QueryBuilders.constantScoreQuery(boolQueryBuilder);
+		SearchResponse response = client.prepareSearch("cat_message_20200921").setTypes("hbasemessage")
+				.setSearchType(SearchType.DFS_QUERY_THEN_FETCH).setQuery(constantScoreQueryBuilder).setFrom(0)
+				.setSize(10).execute().actionGet();
+
+		SearchHits hits = response.getHits();
+		SearchHit[] searchHits = hits.getHits();
+		for (SearchHit searchHit : searchHits) {
+			System.out.println(searchHit.getSourceAsString());
+		}
 	}
 
 
