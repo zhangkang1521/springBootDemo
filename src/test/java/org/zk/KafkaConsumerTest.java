@@ -16,9 +16,7 @@ public class KafkaConsumerTest {
 		// kafka-console-producer.bat --broker-list localhost:9092 --topic test
 		Properties props = new Properties();
 		props.put("bootstrap.servers", "localhost:9092");
-		props.put("group.id", "test");
-		props.put("enable.auto.commit", "true");
-		props.put("auto.commit.interval.ms", "1000");
+		props.put("group.id", "group-1"); // 一个消息只会通知组内的1个消费者
 		props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 		props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 		KafkaConsumer consumer = new KafkaConsumer<>(props);
