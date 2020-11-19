@@ -20,7 +20,8 @@
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
             console.log('已连接：' + frame);
-            $("#connect").attr("disabled", "disabled")
+            $("#connect").attr("disabled", "disabled");
+            // 订阅广播
             stompClient.subscribe('/topic/getResponse', function (response) {
                 console.log(response);
                 showResponse(JSON.parse(response.body).responseMessage);

@@ -19,6 +19,7 @@ public class WsController {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
+    // 聊天室
     @MessageMapping("/chat")
     public void handleChat(Principal principal, MyMessage message) {
         if ("zk".equals(principal.getName())) {
@@ -29,8 +30,9 @@ public class WsController {
     }
 
 
-    @MessageMapping("/welcome")
-    @SendTo("/topic/getResponse")
+    // 广播
+    @MessageMapping("/welcome") // 接收
+    @SendTo("/topic/getResponse") // 发送
     public MyResponse say(MyMessage myMessage) {
         return new MyResponse("welcome:" + myMessage.getName());
     }

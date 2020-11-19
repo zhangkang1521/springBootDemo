@@ -13,15 +13,19 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 @EnableWebSocketMessageBroker
 public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer{
 
-    // stomp
+    /**
+     * 配置 WebSocket 进入点，及开启使用 SockJS，这些配置主要用配置连接端点，用于 WebSocket 连接
+     * @param stompEndpointRegistry
+     */
     @Override
     public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
         stompEndpointRegistry.addEndpoint("/endpoint").withSockJS();
     }
 
-    // 广播
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/queue", "/topic");
+        // topic 广播
+        // queue 点对点
+        registry.enableSimpleBroker("/topic", "/queue");
     }
 
 }
