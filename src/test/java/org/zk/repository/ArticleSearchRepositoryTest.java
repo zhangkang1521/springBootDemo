@@ -37,73 +37,42 @@ import static org.junit.Assert.*;
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ArticleSearchRepositoryTest {
-    @Autowired
-    ArticleSearchRepository repository;
+	@Autowired
+	ArticleSearchRepository repository;
 
-    @Autowired
-    ElasticsearchTemplate elasticsearchTemplate;
 
-    @Test
-    public void testSave(){
-        for (int i=5; i<10; i++) {
-            Article article = new Article();
-//        article.setId(44L);
-            article.setTitle("test"+i);
-            article.setContent("test"+i);
-            repository.save(article);
-        }
-    }
+	@Test
+	public void testSave() {
+		Article article = new Article();
+		article.setId(44L);
+		article.setTitle("test");
+		article.setContent("test");
+		repository.save(article); // 内部使用ElasticSearchTemplate进行操作
+	}
 
-    @Test
-    public void testQuery() {
-        String queryString="笑";//搜索关键字
-        QueryStringQueryBuilder builder = new QueryStringQueryBuilder(queryString);
-        Iterable<Article> searchResult = repository.search(builder);
-        Iterator<Article> iterator = searchResult.iterator();
-        while(iterator.hasNext()){
-            Article article = iterator.next();
-            System.out.println(article);
-        }
-    }
+	@Test
+	public void testQuery() {
+		String queryString = "笑";//搜索关键字
+		QueryStringQueryBuilder builder = new QueryStringQueryBuilder(queryString);
+		Iterable<Article> searchResult = repository.search(builder);
+		Iterator<Article> iterator = searchResult.iterator();
+		while (iterator.hasNext()) {
+			Article article = iterator.next();
+			System.out.println(article);
+		}
+	}
 
-    @Test
-    public void testQueryField() {
-        QueryBuilder qb = QueryBuilders.termsQuery("id", new Integer[]{3, 4});
-        System.out.println(qb);
-        Iterable<Article> searchResult = repository.search(qb);
-        Iterator<Article> iterator = searchResult.iterator();
-        while(iterator.hasNext()){
-            Article article = iterator.next();
-            System.out.println(article);
-        }
-    }
+	@Test
+	public void testQueryField() {
+		QueryBuilder qb = QueryBuilders.termsQuery("id", new Integer[]{3, 4});
+		System.out.println(qb);
+		Iterable<Article> searchResult = repository.search(qb);
+		Iterator<Article> iterator = searchResult.iterator();
+		while (iterator.hasNext()) {
+			Article article = iterator.next();
+			System.out.println(article);
+		}
+	}
 
-    @Test
-    public void testScroll() {
-        SearchQuery searchQuery = new NativeSearchQueryBuilder()
-                .withQuery(matchAllQuery())
-                .withIndices("zk")
-                .withTypes("article")
-                .withPageable(new PageRequest(0, 1))
-                .build();
-        String scrollId = elasticsearchTemplate.scan(searchQuery, 1000, false);
-        boolean hasRecord = true;
-        int i = 0;
-        while (hasRecord) {
-            Page<Article> page = elasticsearchTemplate.scroll(scrollId, 5000L, Article.class);
-
-            List<Article> list = page.getContent();
-            if (!CollectionUtils.isEmpty(list)) {
-                System.out.println("==== " + (++i) * list.size() +"/"+page.getTotalElements());
-                for (Article article : list) {
-                    System.out.println(article.getTitle());
-                }
-                hasRecord = true;
-            } else {
-                hasRecord = false;
-            }
-        }
-
-    }
 
 }

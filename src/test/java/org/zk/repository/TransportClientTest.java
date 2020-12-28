@@ -2,7 +2,9 @@ package org.zk.repository;
 
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
@@ -17,7 +19,7 @@ import java.util.Date;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
-public class EsApiTest {
+public class TransportClientTest {
 
 	private Client client;
 
@@ -56,7 +58,7 @@ public class EsApiTest {
 //		System.out.println(indexResponse.isCreated());
 
 		// 方式2
-		IndexResponse indexResponse2 = client.prepareIndex(index, type, "2")
+		IndexResponse indexResponse2 = client.prepareIndex(index, type, "6")
 				.setSource(article).get();
 		System.out.println(indexResponse2.isCreated());
 	}
@@ -65,9 +67,9 @@ public class EsApiTest {
 	public void update() throws Exception {
 		XContentBuilder updateArticle = jsonBuilder().startObject().field("title", "Hello4").endObject();
 		// 方式1
-//		UpdateRequest updateRequest = new UpdateRequest(index, type, "1");
-//		updateRequest.doc(updateArticle);
-//		client.update(updateRequest).get();
+		UpdateRequest updateRequest = new UpdateRequest(index, type, "1");
+		updateRequest.doc(updateArticle);
+		client.update(updateRequest).get();
 		// 方式2
 		UpdateResponse updateResponse = client.prepareUpdate(index, type, "1")
 				.setDoc(updateArticle).get();
