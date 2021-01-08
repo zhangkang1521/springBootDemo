@@ -34,8 +34,9 @@ public class TransportClientTest {
 	}
 
 	@After
-	public void close() {
+	public void close() throws Exception {
 		client.close();
+		System.in.read();
 	}
 
 
@@ -78,7 +79,7 @@ public class TransportClientTest {
 
 	@Test
 	public void findById() {
-		GetResponse getResponse = client.prepareGet(index, type, "1").get();
+		GetResponse getResponse = client.prepareGet(index, type, "7").get();
 		System.out.println(getResponse.getSource().toString());
 	}
 
