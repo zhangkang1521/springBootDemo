@@ -47,6 +47,12 @@ public class UserServiceTest {
         userService.read();
     }
 
+    // update 之后再次查询，有缓存
+    @Test
+    public void testCache() {
+        userService.cache();
+    }
+
 
 
 }

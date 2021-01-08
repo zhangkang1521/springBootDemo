@@ -20,6 +20,8 @@ import org.zk.controller.param.UserParam;
 import org.zk.dao.UserRepository;
 import org.zk.entity.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -37,6 +39,9 @@ public class UserService {
 
     @Autowired
     UserService userService;
+
+    @PersistenceContext
+    private EntityManager em;
 
     private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -103,6 +108,16 @@ public class UserService {
 //        BigDecimal sumAge = userRepository.sumAge();
 //        System.out.println(count);
 //        System.out.println(sumAge);
+
+    }
+
+    @Transactional
+    public void cache() {
+        userRepository.findOne(1L);
+        userRepository.updateUsernameById("rr4", 1L);
+        em.clear(); // 清除缓存，否则取到的是缓存中的数据
+        User user = userRepository.findOne(1L);
+        System.out.println(user.getUsername());
     }
 
 
