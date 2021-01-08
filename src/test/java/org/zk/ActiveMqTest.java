@@ -61,4 +61,11 @@ public class ActiveMqTest {
 		messageProducer.close();
 		connection.close();
 	}
+
+	@Test
+	public void testAutoAccount() {
+		Map<String, Object> msgHeaders = new HashMap<String, Object>();
+		msgHeaders.put("messageType", "ChangeVisitTime");
+		jmsMessagingTemplate.convertAndSend("ActiveMQ.FINANCE.AUTO_ACCOUNTTING", "{\"orderId\":84290370,  \"visitTime\": \"2020-12-27 14:00:00\"}", msgHeaders);
+	}
 }
