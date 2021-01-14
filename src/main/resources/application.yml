@@ -6,4 +6,4 @@ server:
 #  file: springBootDemo.log
 spring:
   activemq:
-    broker-url: failover://tcp://10.200.4.83:61616
+    broker-url: failover://tcp://localhost:61616

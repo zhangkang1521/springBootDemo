@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
+import javax.jms.Message;
 import javax.jms.TextMessage;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,9 +24,10 @@ public class Consumer {
 
 
     @JmsListener(destination = "HelloWorldQueue")
-    public void receiveQueue(TextMessage msg)  throws Exception {
-        log.info("message arrive: {}", msg.getText());
-        batchProcess(msg);
+    public void receiveQueue(Message msg)  throws Exception {
+        log.info("message arrive: {}", msg);
+        Thread.sleep(500);
+//        batchProcess(msg);
     }
 
     private void batchProcess(TextMessage msg) {
