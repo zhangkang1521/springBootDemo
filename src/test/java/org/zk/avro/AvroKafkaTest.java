@@ -41,7 +41,7 @@ public class AvroKafkaTest {
 		KafkaConsumer consumer = new KafkaConsumer<>(props);
 		consumer.subscribe(Arrays.asList("test"));
 		while(true) {
-			ConsumerRecords<String, User> records = consumer.poll(Duration.ofMillis(2000));
+			ConsumerRecords<String, User> records = consumer.poll(1000);
 			for (ConsumerRecord record : records) {
 				System.out.println("收到消息：" + record.value());
 			}

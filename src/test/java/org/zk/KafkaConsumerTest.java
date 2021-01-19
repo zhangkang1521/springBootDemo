@@ -24,7 +24,7 @@ public class KafkaConsumerTest {
 		KafkaConsumer consumer = new KafkaConsumer<>(props);
 		consumer.subscribe(Arrays.asList("test", "demo"));
 		while(true) {
-			ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(2000));
+			ConsumerRecords<String, String> records = consumer.poll(1000);
 			for (ConsumerRecord<String, String> record : records) {
 				System.out.println("收到消息：" + record.value());
 			}
