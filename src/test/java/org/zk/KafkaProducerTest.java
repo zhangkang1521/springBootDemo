@@ -12,7 +12,7 @@ public class KafkaProducerTest {
 	public void testSend() throws Exception {
 		// kafka-console-consumer.bat --topic test --from-beginning --bootstrap-server localhost:9092
 		Properties props = new Properties();
-		props.put("bootstrap.servers", "localhost:9092");
+		props.put("bootstrap.servers", "10.200.4.77:9092,10.200.4.78:9092,10.200.4.79:9092");
 		props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 		props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
@@ -24,4 +24,6 @@ public class KafkaProducerTest {
 
 		System.in.read();
 	}
+
+
 }

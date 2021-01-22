@@ -22,14 +22,14 @@ public class KafkaConsumerTest {
 		props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
 		KafkaConsumer consumer = new KafkaConsumer<>(props);
-		consumer.subscribe(Arrays.asList("test", "demo"));
-		while(true) {
-			ConsumerRecords<String, String> records = consumer.poll(1000);
-			for (ConsumerRecord<String, String> record : records) {
-				System.out.println("收到消息：" + record.value());
-			}
-			consumer.commitSync();
-		}
+//		consumer.subscribe(Arrays.asList("test", "demo"));
+//		while(true) {
+//			ConsumerRecords<String, String> records = consumer.poll(1000);
+//			for (ConsumerRecord<String, String> record : records) {
+//				System.out.println("收到消息：" + record.value());
+//			}
+//			consumer.commitSync();
+//		}
 		// consumer.close();
 	}
 }
