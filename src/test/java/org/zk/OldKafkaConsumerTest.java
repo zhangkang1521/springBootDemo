@@ -34,6 +34,9 @@ public class OldKafkaConsumerTest {
 		List<KafkaStream<byte[], byte[]>> kafkaStreams = consumerMap.get(topic);
 		for (final KafkaStream kafkaStream : kafkaStreams) {
 			ConsumerIterator<byte[], byte[]> iterator = kafkaStream.iterator();
+			// https://cloud.tencent.com/developer/article/1032491
+			// kafka.server.AbstractFetcherThread#processFetchRequest 使用simpleConsumer.fetch(fetchRequest)拉取消息（安装scala插件看源码）
+			// kafka.consumer.ConsumerFetcherThread.processPartitionData 向阻塞队列里放数据
 			while (iterator.hasNext()) {
 				byte[] msgBytes = iterator.next().message();
 				String message = new String(msgBytes, "utf-8");
