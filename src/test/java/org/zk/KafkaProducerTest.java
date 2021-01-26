@@ -10,6 +10,8 @@ public class KafkaProducerTest {
 
 	@Test
 	public void testSend() throws Exception {
+		// 创建topic: kafka-topics.bat --create --topic test --replication-factor 1 --partitions 4 --zookeeper localhost:2181
+		// 查看topic: kafka-topics.bat --describe --topic test  --zookeeper localhost:2181
 		// kafka-console-consumer.bat --topic test --from-beginning --bootstrap-server localhost:9092
 		Properties props = new Properties();
 		props.put("bootstrap.servers", "localhost:9092");
