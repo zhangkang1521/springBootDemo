@@ -6,6 +6,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zk.params.UserParam;
@@ -15,14 +18,14 @@ import java.util.Locale;
 /**
  * Created by zhangkang on 2017/7/31.
  */
-@Controller
+@RestController
 public class UserController implements ApplicationContextAware {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @RequestMapping("/")
-    public String index(){
-        return "index";
+    @PostMapping("/validate")
+    public String validate(@Validated @RequestBody UserParam userParam){
+        return "test";
     }
 
     @Override
