@@ -18,9 +18,10 @@ public class OldKafkaConsumerTest {
 
 	@Test
 	public void consume() throws Exception {
+		// 旧版本消费offset存在zookeeper中：get /consumers/group-zhangkang/offsets/test/0
 		Properties props = new Properties();
 		props.put("zookeeper.connect", "10.200.4.74:2181");
-		props.put("group.id", "group-1");
+		props.put("group.id", "group-zhangkang");
 		props.put("zookeeper.session.timeout.ms", "30000");
 		props.put("zookeeper.sync.time.ms", "2000");
 		props.put("auto.commit.interval.ms", "1000");

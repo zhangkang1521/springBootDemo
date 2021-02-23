@@ -20,7 +20,9 @@ public class OldKafkaProducerTest {
 		ProducerConfig config = new ProducerConfig(props);
 		Producer kafkaProducer = new Producer<Object, Object>(config);
 
-		KeyedMessage<Object,Object> keyedMessage = new KeyedMessage<Object, Object>("test", "hello");
-		kafkaProducer.send(keyedMessage);
+		for (int i = 0; i < 3; i++) {
+			KeyedMessage<Object, Object> keyedMessage = new KeyedMessage<Object, Object>("test", "hello");
+			kafkaProducer.send(keyedMessage);
+		}
 	}
 }
