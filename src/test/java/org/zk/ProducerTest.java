@@ -27,13 +27,15 @@ public class ProducerTest {
 
 	@Test
 	public void sendCycle() {
-		jmsTemplate.send("zx", new MessageCreator() {
-			public Message createMessage(Session session) throws JMSException {
-				Message msg = session.createTextMessage("hello,zx");
-				msg.setStringProperty("distributedContextJson", DistributedContext.toJSON()); //消息体中添加 distributedContextJson 信息
-				return msg;
-			}
-		});
+		for (int i = 0; i < 10; i++) {
+			jmsTemplate.send("zx", new MessageCreator() {
+				public Message createMessage(Session session) throws JMSException {
+					Message msg = session.createTextMessage("hello,zx");
+					msg.setStringProperty("distributedContextJson", DistributedContext.toJSON()); //消息体中添加 distributedContextJson 信息
+					return msg;
+				}
+			});
+		}
 	}
 
 	@Test

@@ -3,6 +3,7 @@ package org.zk;
 import com.lvmama.pub.DistributedContext;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.jms.*;
 
@@ -10,6 +11,10 @@ public class ConsumerTest {
 
 	@Test
 	public void receive() throws Exception {
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				new String[] { "applicationContext.xml" });
+		context.start();
+
 		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("failover://(tcp://10.200.4.83:61616?wireFormat.maxInactivityDuration=0)?randomize=false");
 		Connection connection = connectionFactory.createConnection();
 		connection.start();
