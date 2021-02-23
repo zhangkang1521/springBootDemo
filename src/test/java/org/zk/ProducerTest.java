@@ -1,5 +1,6 @@
 package org.zk;
 
+import com.lvmama.pub.DistributedContext;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +17,7 @@ import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ActiveMqTest {
+public class ProducerTest {
 
 	@Autowired
 	private JmsMessagingTemplate jmsMessagingTemplate;
@@ -25,10 +26,21 @@ public class ActiveMqTest {
 	private JmsTemplate jmsTemplate;
 
 	@Test
+	public void sendCycle() {
+		jmsTemplate.send("zx", new MessageCreator() {
+			public Message createMessage(Session session) throws JMSException {
+				Message msg = session.createTextMessage("hello,zx");
+				msg.setStringProperty("distributedContextJson", DistributedContext.toJSON()); //消息体中添加 distributedContextJson 信息
+				return msg;
+			}
+		});
+	}
+
+	@Test
 	public void testSend() {
 		Map<String, Object> msgHeaders = new HashMap<String, Object>();
 		msgHeaders.put("eventType", "DISTRIBUTOR_MODIFY_MERCHANT_ORDERID_MSG");
-		jmsMessagingTemplate.convertAndSend("ActiveMQ.FINANCE", "123", msgHeaders);
+		jmsMessagingTemplate.convertAndSend("zx", "123", msgHeaders);
 	}
 
 	@Test
@@ -45,7 +57,7 @@ public class ActiveMqTest {
 
 	@Test
 	public void testSimple() throws Exception {
-		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
+		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("failover://(tcp://10.200.4.83:61616?wireFormat.maxInactivityDuration=0)?randomize=false");
 		Connection connection = connectionFactory.createConnection();
 		connection.start();
 		Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
