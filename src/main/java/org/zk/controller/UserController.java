@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zk.params.UserParam;
 
+import javax.validation.Valid;
 import java.util.Locale;
 
 /**
@@ -24,7 +25,7 @@ public class UserController implements ApplicationContextAware {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @PostMapping("/validate")
-    public String validate(@Validated @RequestBody UserParam userParam){
+    public String validate(@Valid @RequestBody UserParam userParam){
         return "test";
     }
 
