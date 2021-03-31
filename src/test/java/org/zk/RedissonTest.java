@@ -60,7 +60,7 @@ public class RedissonTest {
 			boolean lockSuccess = false;
 			try {
 				logger.info("try lock {}", keys);
-				lockSuccess = lock.tryLock(3, 10, TimeUnit.SECONDS);
+				lockSuccess = lock.tryLock(3, 60*30, TimeUnit.SECONDS);
 				if (lockSuccess) {
 					logger.info("lock success {}", keys);
 					Thread.sleep(5000);
