@@ -2,11 +2,12 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml" />
 
-    <root level="ERROR">
+    <root level="INFO">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
     </root>
 
     <logger name ="org.zk" level="debug" />
+    <logger name ="org.springframework" level="debug" />
 
 </configuration>
