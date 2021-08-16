@@ -4,6 +4,9 @@ import com.ql.util.express.DefaultContext;
 import com.ql.util.express.ExpressRunner;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class QLExpressTest {
 
 	@Test
@@ -20,18 +23,23 @@ public class QLExpressTest {
 
 	@Test
 	public void test2() throws Exception {
-
-
+		List<Rule> rules = new ArrayList<>();
+		rules.add(new Rule("people.equals('driver')", "order.getAmount1()*0.1", 1));
+		rules.add(new Rule("people.equals('bd') && 'fruit'.equals(category)", "order.getAmount2()*0.2", 1));
 
 		ExpressRunner runner = new ExpressRunner();
 		DefaultContext<String, Object> context = new DefaultContext<String, Object>();
-		context.put("n",10);
-//		String express =
-//				"for(sum=0,i=0;i<n;i++){" +
-//				"sum=sum+i;" +
-//				"}" +
-//				"return sum;";
-		Object r = runner.execute("n>11", context, null, true, false);
-		System.out.println(r);
+		context.put("people", "driver");
+		context.put("order", new Order(1L, 100L, 200L));
+
+		for(Rule rule : rules) {
+			System.out.println("判断条件：" + rule.getCondition());
+			Object match = runner.execute(rule.getCondition(), context, null, true, false);
+			System.out.println("是否匹配：" + match);
+			if ((Boolean) match) {
+				Object result = runner.execute(rule.getAction(), context, null, true, false);
+				System.out.println("运算结果：" + result);
+			}
+		}
 	}
 }
