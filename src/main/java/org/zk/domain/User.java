@@ -1,9 +1,9 @@
 package org.zk.domain;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import org.zk.enums.UserStatus;
+
+import java.util.Date;
 
 /**
  * Created by zhangkang on 2019/1/21.
@@ -15,6 +15,9 @@ public class User {
     private String username;
 
     private UserStatus status;
+
+	@TableField(fill = FieldFill.INSERT)
+    private Date createTime;
 
     public Long getId() {
         return id;
@@ -39,4 +42,12 @@ public class User {
     public void setStatus(UserStatus status) {
         this.status = status;
     }
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 }
