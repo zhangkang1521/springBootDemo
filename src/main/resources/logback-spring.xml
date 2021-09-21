@@ -4,6 +4,8 @@
 
     <conversionRule conversionWord="traceId" converterClass="org.zk.log.TraceIdConversion" />
 
+    <conversionRule conversionWord="m" converterClass="org.zk.log.RequestCodeConversion"/>
+
     <property name="CONSOLE_LOG_PATTERN" value="[%traceId] %m %n"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">

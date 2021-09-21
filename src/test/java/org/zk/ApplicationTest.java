@@ -2,8 +2,11 @@ package org.zk;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.zk.controller.UserController;
 
 /**
  * Created by Administrator on 8/5/2017.
@@ -12,8 +15,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class ApplicationTest {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Test
     public void test1() {
-        System.out.println("hello");
+        logger.info("hello");
     }
 }
