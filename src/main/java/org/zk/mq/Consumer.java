@@ -22,6 +22,9 @@ public class Consumer {
 
     private List<TextMessage> list =  Collections.synchronizedList(new ArrayList<TextMessage>());
 
+    public Consumer() {
+        System.out.println("ok");
+    }
 
     @JmsListener(destination = "HelloWorldQueue")
     public void receiveQueue(Message msg)  throws Exception {
