@@ -42,4 +42,13 @@ public class QLExpressTest {
 			}
 		}
 	}
+
+	@Test
+	public void test3() throws Exception {
+		ExpressRunner runner = new ExpressRunner();
+		DefaultContext<String, Object> context = new DefaultContext<String, Object>();
+		context.put("category", "apple");
+		Object match = runner.execute("category == \"apple\"", context, null, true, false);
+		System.out.println(match);
+	}
 }
