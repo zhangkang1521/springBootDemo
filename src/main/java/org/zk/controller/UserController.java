@@ -35,6 +35,7 @@ public class UserController implements ApplicationContextAware {
 
     @RequestMapping("/")
     public String index(){
+        // 使用代理的target进行执行的
         logger.info("userController:{}", applicationContext.getBean("userController"));
         logger.info("this:{} userService:{}", this, userService);
         return "hello";
@@ -42,7 +43,7 @@ public class UserController implements ApplicationContextAware {
 
     @RequestMapping("/2")
     private String index2(){
-
+        // 直接代理执行
         logger.info("this:{} userService:{}", this, userService);
         return "hello";
     }
