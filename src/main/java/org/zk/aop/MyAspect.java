@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyAspect {
 
-    @Before("execution(public * org.zk.aop.MyTargetImpl.say*())")
+    @Before("execution(public * org.zk.aop.*.*())")
     public void before() {
         System.out.println("=== before ===");
     }

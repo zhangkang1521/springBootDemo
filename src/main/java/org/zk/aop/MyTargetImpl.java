@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyTargetImpl implements MyTarget {
 
-    final public void sayHello() {
+    public void sayHello() {
         System.out.println("hello");
 //        this.sayWorld();
-        ((MyTarget) AopContext.currentProxy()).sayWorld();
+//        ((MyTarget) AopContext.currentProxy()).sayWorld();
     }
 
     public void sayWorld() {
