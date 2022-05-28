@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zk.dao.GoodsDao">
+
+    <select id="findById" parameterType="long" resultType="org.zk.model.Goods">
+        select goods_id as goodsId,
+               goods_type as goodsType,
+               goods_name as goodsName
+        from goods where goods_id = #{goodsId}
+    </select>
+
+    <insert id="insert" parameterType="org.zk.model.Goods">
+        insert into goods (goods_id, goods_type, goods_name)
+        values(#{goodsId}, #{goodsType}, #{goodsName})
+    </insert>
+
+</mapper>
