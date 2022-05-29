@@ -26,10 +26,15 @@ public class ApplicationTest {
     }
 
     @Test
+    public void findByName() {
+        List<Goods> list = goodsDao.findByGoodsName("124");
+    }
+
+    @Test
     public void insert() {
         Goods goods = new Goods();
-        goods.setGoodsId(2L);
-        goods.setGoodsType(2);
+        goods.setGoodsId(22L);
+        goods.setGoodsType(1);
         goods.setGoodsName("bbb");
         goodsDao.insert(goods);
     }

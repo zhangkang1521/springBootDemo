@@ -11,6 +11,13 @@
         from goods where goods_id = #{goodsId}
     </select>
 
+    <select id="findByGoodsName" parameterType="string" resultType="org.zk.model.Goods">
+        select goods_id as goodsId,
+               goods_type as goodsType,
+               goods_name as goodsName
+        from goods where goods_name = #{goodsName}
+    </select>
+
     <insert id="insert" parameterType="org.zk.model.Goods">
         insert into goods (goods_id, goods_type, goods_name)
         values(#{goodsId}, #{goodsType}, #{goodsName})

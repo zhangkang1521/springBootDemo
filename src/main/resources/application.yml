@@ -1,24 +1,27 @@
 server:
   port: 9999
-spring:
-  datasource:
-    username: root
-    password: 123456
-    url: jdbc:mysql://localhost:3306/zk?characterEncoding=utf8&serverTimezone=Asia/Shanghai
-    driver-class-name: com.mysql.cj.jdbc.Driver
+#spring:
+#  datasource:
+#    username: root
+#    password: 123456
+#    url: jdbc:mysql://localhost:3306/zk?characterEncoding=utf8&serverTimezone=Asia/Shanghai
+#    driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:
   mapper-locations: classpath:mappers/*.xml
-# 多数据源配置
-#database0:
-#  databaseName: database0
-#  driverClassName: com.mysql.cj.jdbc.Driver
-#  password: 123456
-#  url: jdbc:mysql://ip:3306/database0?characterEncoding=utf8&useSSL=false
-#  username: root
-#database1:
-#  databaseName: database1
-#  driverClassName: com.mysql.cj.jdbc.Driver
-#  password: 123456
-#  url: jdbc:mysql://ip:3306/database1?characterEncoding=utf8&useSSL=false
-#  username: root
+
+# 分库分表配置
+ds0:
+  databaseName: ds0
+  driverClassName: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/ds0?characterEncoding=utf8&serverTimezone=Asia/Shanghai
+  username: root
+  password: 123456
+
+ds1:
+  databaseName: ds1
+  driverClassName: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/ds1?characterEncoding=utf8&serverTimezone=Asia/Shanghai
+  username: root
+  password: 123456
+

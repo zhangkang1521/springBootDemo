@@ -8,15 +8,15 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 
 /**
- * 数据库0配置
+ * 数据库1配置
  *
  * @author zhangkang
  * @date 2022/5/28 17:10
  */
 @Data
-@ConfigurationProperties(prefix = "database0")
+@ConfigurationProperties(prefix = "ds1")
 @Component
-public class Database0Config {
+public class Ds1Config {
 
     private String url;
     private String username;

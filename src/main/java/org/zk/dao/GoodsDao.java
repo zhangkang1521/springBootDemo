@@ -1,7 +1,6 @@
 package org.zk.dao;
 
 
-import org.springframework.stereotype.Repository;
 import org.zk.model.Goods;
 
 import java.util.List;
@@ -15,6 +14,8 @@ import java.util.List;
 public interface GoodsDao {
 
     List<Goods> findById(Long goodsId);
+
+    List<Goods> findByGoodsName(String goodsName);
 
     void insert(Goods goods);
 }

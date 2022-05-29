@@ -8,26 +8,29 @@ import com.dangdang.ddframe.rdb.sharding.api.strategy.database.DatabaseShardingS
 import com.dangdang.ddframe.rdb.sharding.api.strategy.table.TableShardingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
- * 数据源配置
+ * sharding-jdbc数据源配置
  *
  * @author zhangkang
  * @date 2022/5/28 17:12
  */
-public class DataSourceConfig {
+@Component
+public class ShardingDsConfig {
 
     @Autowired
-    private Database0Config database0Config;
+    private Ds0Config ds0Config;
 
     @Autowired
-    private Database1Config database1Config;
+    private Ds1Config ds1Config;
 
     @Autowired
     private DatabaseShardingAlgorithm databaseShardingAlgorithm;
@@ -41,33 +44,29 @@ public class DataSourceConfig {
     }
 
     private DataSource buildDataSource() throws SQLException {
-        //分库设置
         Map<String, DataSource> dataSourceMap = new HashMap<>(2);
-        //添加两个数据库database0和database1
-        dataSourceMap.put(database0Config.getDatabaseName(), database0Config.createDataSource());
-        dataSourceMap.put(database1Config.getDatabaseName(), database1Config.createDataSource());
-        //设置默认数据库
-        DataSourceRule dataSourceRule = new DataSourceRule(dataSourceMap, database0Config.getDatabaseName());
+        dataSourceMap.put(ds0Config.getDatabaseName(), ds0Config.createDataSource());
+        dataSourceMap.put(ds1Config.getDatabaseName(), ds1Config.createDataSource());
 
-        //分表设置，大致思想就是将查询虚拟表Goods根据一定规则映射到真实表中去
-        TableRule orderTableRule = TableRule.builder("goods")
-                .actualTables(Arrays.asList("goods_0", "goods_1"))
+        DataSourceRule dataSourceRule = new DataSourceRule(dataSourceMap, ds0Config.getDatabaseName());
+
+        TableRule tableRule = TableRule.builder("goods")
+                .actualTables(Arrays.asList("goods0", "goods1"))
                 .dataSourceRule(dataSourceRule)
                 .build();
 
-        //分库分表策略
         ShardingRule shardingRule = ShardingRule.builder()
                 .dataSourceRule(dataSourceRule)
-                .tableRules(Arrays.asList(orderTableRule))
+                .tableRules(Arrays.asList(tableRule))
                 .databaseShardingStrategy(new DatabaseShardingStrategy("goods_id", databaseShardingAlgorithm))
-                .tableShardingStrategy(new TableShardingStrategy("goods_type", tableShardingAlgorithm)).build();
-        DataSource dataSource = ShardingDataSourceFactory.createDataSource(shardingRule);
-        return dataSource;
+                .tableShardingStrategy(new TableShardingStrategy("goods_type", tableShardingAlgorithm))
+                .build();
+
+        // 可以修改sharding-jdbc的线程池数量，默认100
+        Properties properties = new Properties();
+        properties.put("executor.max.size", "4");
+
+        return ShardingDataSourceFactory.createDataSource(shardingRule, properties);
     }
 
-
-//    @Bean
-//    public KeyGenerator keyGenerator() {
-//        return new DefaultKeyGenerator();
-//    }
 }
