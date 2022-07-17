@@ -23,4 +23,17 @@
         values(#{goodsId}, #{goodsType}, #{goodsName})
     </insert>
 
+    <update id="updateByIds">
+        update goods set goods_name = 'xxx'
+        where goods_id in
+        <foreach collection="list" open="(" separator="," close=")" item="goodsId">
+            #{goodsId}
+        </foreach>
+    </update>
+
+    <update id="updateById">
+        update goods set goods_name = 'xxx'
+        where goods_id = #{goodsId}
+    </update>
+
 </mapper>

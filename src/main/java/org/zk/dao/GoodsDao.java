@@ -18,4 +18,8 @@ public interface GoodsDao {
     List<Goods> findByGoodsName(String goodsName);
 
     void insert(Goods goods);
+
+    void updateByIds(List<Long> goodsIds);
+
+    void updateById(Long goodsId);
 }

@@ -59,7 +59,7 @@ public class ShardingDsConfig {
                 .dataSourceRule(dataSourceRule)
                 .tableRules(Arrays.asList(tableRule))
                 .databaseShardingStrategy(new DatabaseShardingStrategy("goods_id", databaseShardingAlgorithm))
-                .tableShardingStrategy(new TableShardingStrategy("goods_type", tableShardingAlgorithm))
+                .tableShardingStrategy(new TableShardingStrategy("goods_id", tableShardingAlgorithm))
                 .build();
 
         // 可以修改sharding-jdbc的线程池数量，默认100

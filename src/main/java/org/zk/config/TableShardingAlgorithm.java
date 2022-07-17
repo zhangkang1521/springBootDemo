@@ -16,10 +16,10 @@ import java.util.LinkedHashSet;
  * @date 2022/5/28 17:16
  */
 @Component
-public class TableShardingAlgorithm implements SingleKeyTableShardingAlgorithm<Integer> {
+public class TableShardingAlgorithm implements SingleKeyTableShardingAlgorithm<Long> {
 
     @Override
-    public String doEqualSharding(final Collection<String> tableNames, final ShardingValue<Integer> shardingValue) {
+    public String doEqualSharding(final Collection<String> tableNames, final ShardingValue<Long> shardingValue) {
         for (String each : tableNames) {
             if (each.endsWith(shardingValue.getValue() % 2 + "")) {
                 return each;
@@ -29,9 +29,9 @@ public class TableShardingAlgorithm implements SingleKeyTableShardingAlgorithm<I
     }
 
     @Override
-    public Collection<String> doInSharding(final Collection<String> tableNames, final ShardingValue<Integer> shardingValue) {
+    public Collection<String> doInSharding(final Collection<String> tableNames, final ShardingValue<Long> shardingValue) {
         Collection<String> result = new LinkedHashSet<>(tableNames.size());
-        for (Integer value : shardingValue.getValues()) {
+        for (Long value : shardingValue.getValues()) {
             for (String tableName : tableNames) {
                 if (tableName.endsWith(value % 2 + "")) {
                     result.add(tableName);
@@ -43,10 +43,10 @@ public class TableShardingAlgorithm implements SingleKeyTableShardingAlgorithm<I
 
     @Override
     public Collection<String> doBetweenSharding(final Collection<String> tableNames,
-                                                final ShardingValue<Integer> shardingValue) {
+                                                final ShardingValue<Long> shardingValue) {
         Collection<String> result = new LinkedHashSet<>(tableNames.size());
-        Range<Integer> range = shardingValue.getValueRange();
-        for (Integer i = range.lowerEndpoint(); i <= range.upperEndpoint(); i++) {
+        Range<Long> range = shardingValue.getValueRange();
+        for (Long i = range.lowerEndpoint(); i <= range.upperEndpoint(); i++) {
             for (String each : tableNames) {
                 if (each.endsWith(i % 2 + "")) {
                     result.add(each);
