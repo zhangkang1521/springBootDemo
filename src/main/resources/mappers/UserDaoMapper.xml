@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zk.dao.UserDao">
+
+    <select id="getById" resultType="org.zk.entity.User">
+        select * from TB_USER where id = #{id}
+    </select>
+
+    <select id="listByUsername" resultType="org.zk.entity.User">
+        select * from TB_USER where username = #{username}
+    </select>
+
+    <insert id="insert" parameterType="org.zk.entity.User">
+        insert into tb_user(username)
+        values(#{username})
+    </insert>
+</mapper>
