@@ -12,7 +12,11 @@ public interface UserDao {
 
     User getById(Long id);
 
-    List<User> listByUsername(String username);
+    List<User> listAll();
 
     void insert(User user);
+
+    void update(String username, Long id);
+
+    void deleteById(Long id);
 }
