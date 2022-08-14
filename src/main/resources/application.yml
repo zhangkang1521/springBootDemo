@@ -3,10 +3,10 @@ spring:
     active: dev
 server:
   port: 9999
-#app:
-#  id: finance-test
-#apollo:
-#  bootstrap:
-#    enabled: true
-#  meta: http://106.54.227.205:8080
+app:
+  id: finance-test
+apollo:
+  bootstrap:
+    enabled: true
+  meta: http://106.54.227.205:8080
 timeout: 100

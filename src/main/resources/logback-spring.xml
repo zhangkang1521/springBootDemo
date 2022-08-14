@@ -8,5 +8,6 @@
     </root>
 
     <logger name ="org.zk" level="debug" />
+    <logger name ="com.ctrip" level="debug" />
 
 </configuration>

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class Application {
 
     public static void main(String[] args) throws Exception {
+        // https://www.cnblogs.com/markLogZhu/p/12497258.html
+        // ApolloApplicationContextInitializer
         SpringApplication.run(Application.class, args);
     }
 }
