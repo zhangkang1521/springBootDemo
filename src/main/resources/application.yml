@@ -8,8 +8,8 @@ logging:
 
 spring:
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/zk
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/zk?serverTimezone=Asia/Shanghai
     username: root
     password: 123456
 

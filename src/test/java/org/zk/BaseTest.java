@@ -14,11 +14,5 @@ import org.zk.dao.UserDao;
 @SpringBootTest
 public class BaseTest {
 
-    @Autowired
-    UserDao userDao;
 
-    @Test
-    public void test1() {
-        System.out.println(userDao);
-    }
 }
