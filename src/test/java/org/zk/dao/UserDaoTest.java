@@ -15,4 +15,9 @@ public class UserDaoTest extends BaseTest {
     public void test1() {
         System.out.println(userDao.findById(1));
     }
+
+    @Test
+    public void test2() {
+        System.out.println(userDao.selectAll());
+    }
 }
