@@ -1,15 +1,14 @@
 package org.zk.config;
 
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
-import org.zk.dao.UserDao;
+import tk.mybatis.mapper.entity.Config;
+import tk.mybatis.mapper.mapperhelper.MapperHelper;
+import tk.mybatis.spring.annotation.MapperScan;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -22,14 +21,25 @@ import java.util.List;
  * @date 2022/10/1 21:59
  */
 @Configuration
+@MapperScan("org.zk.dao")
 public class MybatisConfig {
 
     @Bean
     public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
-        // 这种是错误的
-//        sessionFactory.setMapperLocations(new Resource[]{new ClassPathResource("mapper/*.xml")});
+
+        //tk.mybatis.mapper.session.Configuration
+        tk.mybatis.mapper.session.Configuration configuration = new tk.mybatis.mapper.session.Configuration();
+        //可以对 MapperHelper 进行配置后 set
+        configuration.setMapperHelper(new MapperHelper());
+        //设置为 tk 提供的 Configuration
+        Config config = new Config();
+        config.setSafeUpdate(true);
+        config.setSafeDelete(true);
+        configuration.setConfig(config);
+        sessionFactory.setConfiguration(configuration);
+
         sessionFactory.setMapperLocations(resolveMapperLocations("mapper/*.xml"));
         return sessionFactory;
     }

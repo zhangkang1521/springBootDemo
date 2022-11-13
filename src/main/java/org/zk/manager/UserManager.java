@@ -1,5 +1,6 @@
 package org.zk.manager;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.zk.dao.UserDao;
@@ -8,6 +9,8 @@ import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.Weekend;
 import tk.mybatis.mapper.weekend.WeekendSqls;
+
+import java.util.List;
 
 /**
  * @author zhangkang
@@ -49,9 +52,24 @@ public class UserManager {
 
         // 默认传参为空会更新全表
         // 指定notNull为true，为空会报错
-//        Weekend<User> weekend = new Weekend(User.class);
+        Weekend<User> weekend = new Weekend(User.class);
+//        Weekend<User> weekend = new Weekend(User.class, true, true);
+        // username为空，safeUpdate无法拦截到
+         weekend.weekendCriteria().andEqualTo(User::getUsername, username);
+        userDao.updateByExampleSelective(user, weekend);
+    }
+
+    public void updateByPrimaryKey() {
+        User user = new User();
+        user.setId(1);
+        user.setUsername("xx");
+        userDao.updateByPrimaryKeySelective(user);
+    }
+
+    public void findTopByUsername(String username) {
         Weekend<User> weekend = new Weekend(User.class, true, true);
         weekend.weekendCriteria().andEqualTo(User::getUsername, username);
-        userDao.updateByExampleSelective(user, weekend);
+        List<User> list = userDao.selectByExampleAndRowBounds(weekend, new RowBounds(0, 1));
+        System.out.println(list);
     }
 }

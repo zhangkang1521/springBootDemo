@@ -8,7 +8,6 @@ import tk.mybatis.spring.annotation.MapperScan;
  * Created by zhangkang on 2017/1/12.
  */
 @SpringBootApplication
-@MapperScan("org.zk.dao")
 public class Application {
 
 

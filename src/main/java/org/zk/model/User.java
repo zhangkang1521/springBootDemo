@@ -1,5 +1,9 @@
 package org.zk.model;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
@@ -10,7 +14,11 @@ public class User implements Serializable{
 
     private static final long serialVersionUID = 3641942761064124282L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+
     private String username;
 
     public Integer getId() {

@@ -30,4 +30,14 @@ public class UserManagerTest extends BaseTest {
     public void update() {
         userManager.updateByWeekend(null);
     }
+
+    @Test
+    public void updateByPrimaryKey() {
+        userManager.updateByPrimaryKey();
+    }
+
+    @Test
+    public void findTopByUsername() {
+        userManager.findTopByUsername("zk");
+    }
 }
