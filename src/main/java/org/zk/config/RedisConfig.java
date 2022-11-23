@@ -14,17 +14,17 @@ public class RedisConfig {
 	@Value("${redis.address}")
 	private String[] redisAddress;
 
-//	@Bean
-//	public RedissonClient createProcessRedisClient(){
-//		Config config = new Config();
-//		config.useSingleServer().setAddress("redis://10.200.6.99:6379");
-//		return Redisson.create(config);
-//	}
-
 	@Bean
 	public RedissonClient createProcessRedisClient(){
 		Config config = new Config();
-		config.useClusterServers().addNodeAddress(redisAddress);
+		config.useSingleServer().setAddress("redis://localhost:6379");
 		return Redisson.create(config);
 	}
+
+//	@Bean
+//	public RedissonClient createProcessRedisClient(){
+//		Config config = new Config();
+//		config.useClusterServers().addNodeAddress(redisAddress);
+//		return Redisson.create(config);
+//	}
 }

@@ -26,6 +26,29 @@ public class RedissonTest {
 	private static Logger logger = LoggerFactory.getLogger(RedissonTest.class);
 
 	@Test
+	public void test1() throws Exception {
+		// 不释放锁，会有看门狗每次续命30s
+		RLock rLock = redissonClient.getLock("aa");
+		if (!rLock.tryLock(1, 3, TimeUnit.SECONDS)) {
+			return;
+		}
+		try {
+			System.out.println("start");
+			TimeUnit.SECONDS.sleep(5);
+			System.out.println("end");
+		} finally {
+			// rLock.unlock();
+			System.out.println("un lock ok");
+//			new Thread(() -> {
+//				RLock rLock2 = redissonClient.getLock("aa");
+//				System.out.println("un lock");
+//				// 会报错，只能解锁自己持有的锁
+//				rLock2.unlock();
+//			}).start();
+		}
+	}
+
+	@Test
 	public void testLock() throws Exception {
 		new Thread(new Task(redissonClient, "bb")).start();
 		new Thread(new Task(redissonClient, "bb")).start();
@@ -93,22 +116,22 @@ public class RedissonTest {
 
 		@Override
 		public void run() {
-			Lock lock = redissonClient.getLock(key);
-			boolean lockSuccess = false;
+			RLock lock = redissonClient.getLock(key);
+			logger.info("try lock {}", key);
 			try {
-				lockSuccess = lock.tryLock();
-				if(lockSuccess) {
-					logger.info("get lock {} success", key);
-					try {
-						Thread.sleep(500);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				} else {
+				if (!lock.tryLock(4, 3, TimeUnit.SECONDS)) {
 					logger.info("get lock {} fail", key);
+					return;
 				}
+				logger.info("get lock {} success", key);
+				logger.info("start");
+				TimeUnit.SECONDS.sleep(10);
+				logger.info("end");
+			} catch (Exception e) {
+				e.printStackTrace();
 			} finally {
-				if (lockSuccess) {
+				if (lock.isLocked() && lock.isHeldByCurrentThread()) {
+					logger.info("un lock {}", key);
 					lock.unlock();
 				}
 			}
