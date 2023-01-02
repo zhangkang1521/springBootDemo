@@ -15,6 +15,8 @@ public class KafkaTemplateTest {
 
 	@Test
 	public void testSend() {
-		kafkaTemplate.send("test", "hello");
+		for (int i = 0; i < 100; i++) {
+			kafkaTemplate.send("demo-topic", "hello-" + i);
+		}
 	}
 }
