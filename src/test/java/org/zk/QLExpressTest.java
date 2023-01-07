@@ -1,10 +1,13 @@
 package org.zk;
 
+import cn.hutool.core.date.DateUtil;
 import com.ql.util.express.DefaultContext;
 import com.ql.util.express.ExpressRunner;
 import org.junit.Test;
+import org.zk.utils.DeliverTimeUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class QLExpressTest {
@@ -50,5 +53,27 @@ public class QLExpressTest {
 		context.put("category", "apple");
 		Object match = runner.execute("category == \"apple\"", context, null, true, false);
 		System.out.println(match);
+	}
+
+
+	@Test
+	public void test4() throws Exception {
+		ExpressRunner runner = new ExpressRunner();
+		DefaultContext<String, Object> context = new DefaultContext<String, Object>();
+		context.put("waybillType", 29);
+		Date stockInTime = DateUtil.parse("2023-01-04 23:59:59.999").toJdkDate();
+		context.put("stockInTime", stockInTime);
+
+		runner.addFunctionOfClassMethod("isIn", DeliverTimeUtils.class.getName(), "isIn", new Class[] {Date.class, String.class, String.class}, null);
+		runner.addFunctionOfClassMethod("todayTime", DeliverTimeUtils.class.getName(), "todayTime", new Class[] {Date.class, String.class}, null);
+		runner.addFunctionOfClassMethod("tomorrowTime", DeliverTimeUtils.class.getName(), "tomorrowTime", new Class[] {Date.class, String.class}, null);
+
+		String condition = "waybillType == 29 && isIn(stockInTime, \"00:00:00\", \"23:59:59\")";
+		Object r = runner.execute(condition, context, null, true, false);
+		System.out.println(r);
+
+		String action = "tomorrowTime(stockInTime, \"14:00\")";
+		Object result = runner.execute(action, context, null, true, false);
+		System.out.println(result);
 	}
 }
