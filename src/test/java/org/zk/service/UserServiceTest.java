@@ -22,4 +22,9 @@ public class UserServiceTest {
     public void saveUser() {
         userService.saveUser();
     }
+
+    @Test
+    public void search() {
+        userService.search();
+    }
 }

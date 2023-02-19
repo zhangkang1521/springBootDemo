@@ -18,7 +18,7 @@ public class UserDaoTest {
 
     @Test
     public void findById() {
-        User user = userDao.findById(3);
+        User user = userDao.findById(1);
         System.out.println(user.getUsername());
     }
 }
