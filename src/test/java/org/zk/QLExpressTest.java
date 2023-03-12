@@ -76,4 +76,22 @@ public class QLExpressTest {
 		Object result = runner.execute(action, context, null, true, false);
 		System.out.println(result);
 	}
+
+	@Test
+	public void test5() throws Exception {
+		ExpressRunner runner = new ExpressRunner();
+		DefaultContext<String, Object> context = new DefaultContext<String, Object>();
+		context.put("waybillType", 29);
+		Date stockInTime = DateUtil.parse("2023-01-04 23:59:59.999").toJdkDate();
+		context.put("stockInTime", stockInTime);
+
+		runner.addFunctionOfClassMethod("isIn", DeliverTimeUtils.class.getName(), "isIn", new Class[] {Date.class, String.class, String.class}, null);
+		runner.addFunctionOfClassMethod("todayTime", DeliverTimeUtils.class.getName(), "todayTime", new Class[] {Date.class, String.class}, null);
+		runner.addFunctionOfClassMethod("tomorrowTime", DeliverTimeUtils.class.getName(), "tomorrowTime", new Class[] {Date.class, String.class}, null);
+
+		String condition = "true";
+		Object r = runner.execute(condition, context, null, true, false);
+		System.out.println(r);
+
+	}
 }
