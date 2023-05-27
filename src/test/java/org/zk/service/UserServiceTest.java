@@ -22,4 +22,5 @@ public class UserServiceTest {
 		userService.findUser(Arrays.asList(1, 2));
 //		userService.findUser(Arrays.asList(1, 2));
 	}
+
 }

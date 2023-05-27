@@ -11,7 +11,7 @@ import java.util.List;
 public class UserService {
 
 
-	@Cacheable(cacheNames = "order")
+	@Cacheable(cacheNames = "user")
 	public List<User> findUser(List<Integer> userIds) {
 		System.out.println("invoke findUsers");
 		List<User> users = new ArrayList<>();
