@@ -22,4 +22,5 @@ public class UserServiceTest {
 		userService.findUser(1L);
 		userService.findUser(1L);
 	}
+
 }
