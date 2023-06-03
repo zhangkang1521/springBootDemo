@@ -26,18 +26,18 @@ public class CacheConfig {
 //	}
 
 
-	@Bean
-	public RedisCacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
-		// 配置每个缓存不同的缓存时间
-		Map<String, RedisCacheConfiguration> cacheNamesConfigurationMap = new HashMap<>();
-		cacheNamesConfigurationMap.put("user",
-				RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(100)));
-		cacheNamesConfigurationMap.put("order",
-				RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(200)));
-
-		return new RedisCacheManager(RedisCacheWriter.lockingRedisCacheWriter(connectionFactory),
-				RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(300)),
-				cacheNamesConfigurationMap);
-	}
+//	@Bean
+//	public RedisCacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
+//		// 配置每个缓存不同的缓存时间
+//		Map<String, RedisCacheConfiguration> cacheNamesConfigurationMap = new HashMap<>();
+//		cacheNamesConfigurationMap.put("user",
+//				RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(100)));
+//		cacheNamesConfigurationMap.put("order",
+//				RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(200)));
+//
+//		return new RedisCacheManager(RedisCacheWriter.lockingRedisCacheWriter(connectionFactory),
+//				RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(300)),
+//				cacheNamesConfigurationMap);
+//	}
 
 }

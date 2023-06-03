@@ -1,5 +1,7 @@
 package org.zk.service;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.zk.model.User;
@@ -8,18 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
+@CacheConfig
 public class UserService {
 
 
-	@Cacheable(cacheNames = "order")
-	public List<User> findUser(List<Integer> userIds) {
-		System.out.println("invoke findUsers");
-		List<User> users = new ArrayList<>();
-		for (int i = 0; i < userIds.size(); i++) {
-			User user = new User();
-			user.setId(userIds.get(i));
-			users.add(user);
-		}
-		return users;
-	}
+    /**
+     * key: user::1
+     * @param userId
+     * @return
+     */
+    @Cacheable(cacheNames = "user")
+    public User findUser(Long userId) {
+        log.info("findUser from db, userId:{}", userId);
+        User user = new User();
+        user.setId(userId);
+        return user;
+    }
 }

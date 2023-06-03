@@ -19,7 +19,7 @@ public class UserServiceTest {
 
 	@Test
 	public void findUser() {
-		userService.findUser(Arrays.asList(1, 2));
-//		userService.findUser(Arrays.asList(1, 2));
+		userService.findUser(1L);
+		userService.findUser(1L);
 	}
 }
