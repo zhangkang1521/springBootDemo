@@ -28,7 +28,7 @@ public class ValidatorTest {
     @Test
     public void test1() {
         Foo foo = new Foo();
-        Set<ConstraintViolation<Object>> validate = validator.validate(foo);
-        validator2.validate(foo);
+        // Set<ConstraintViolation<Object>> validate = validator.validate(foo);
+        Set<ConstraintViolation<Object>> validate2 = validator2.validate(foo);
     }
 }
