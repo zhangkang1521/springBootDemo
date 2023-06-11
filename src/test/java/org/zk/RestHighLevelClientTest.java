@@ -31,17 +31,13 @@ public class RestHighLevelClientTest {
     private RestHighLevelClient restHighLevelClient;
 
 
-
     @Test
     public void insert() throws Exception {
         UserDoc userDoc = new UserDoc();
         userDoc.setUserId(2L);
-         userDoc.setUsername("zk2");
+        userDoc.setUsername("zk2");
         userDoc.setBirthday(new Date());
         IndexRequest indexRequest = new IndexRequest("user");
-        // 时间转换问题
-        // System.out.println(BeanUtil.beanToMap(userDoc));
-        // indexRequest.source(BeanUtil.beanToMap(userDoc), XContentType.JSON);
 
         // 空字段显示为空，日期类型@JSONField注解
         indexRequest.source(JSON.toJSONString(userDoc, SerializerFeature.WriteMapNullValue), XContentType.JSON);

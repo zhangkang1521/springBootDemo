@@ -3,8 +3,12 @@ package org.zk.config;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.index.mapper.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+
+import java.text.SimpleDateFormat;
 
 /**
  * @author zhangkang
@@ -13,10 +17,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ElasticSearchConfig {
 
+    // 使用spring的自动配置更好
+//    @Bean
+//    public RestHighLevelClient restHighLevelClient() {
+//        RestHighLevelClient restHighLevelClient = new RestHighLevelClient(
+//                RestClient.builder(new HttpHost("localhost", 9200, "http")));
+//        return restHighLevelClient;
+//    }
+
     @Bean
-    public RestHighLevelClient restHighLevelClient() {
-        RestHighLevelClient restHighLevelClient = new RestHighLevelClient(
-                RestClient.builder(new HttpHost("localhost", 9200, "http")));
-        return restHighLevelClient;
+    public ElasticsearchRestTemplate elasticsearchRestTemplate(RestHighLevelClient restHighLevelClient) {
+        // TODO yyyy-MM-dd HH:mm:ss 日期格式如何转换
+        return new ElasticsearchRestTemplate(restHighLevelClient);
     }
 }

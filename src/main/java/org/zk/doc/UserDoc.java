@@ -3,6 +3,7 @@ package org.zk.doc;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.Date;
 
@@ -11,6 +12,7 @@ import java.util.Date;
  * @date 2023/3/12 17:11
  */
 @Data
+@Document(indexName = "user", type = "_doc")
 public class UserDoc {
 
     private Long userId;
