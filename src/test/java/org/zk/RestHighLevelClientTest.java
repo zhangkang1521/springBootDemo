@@ -3,12 +3,12 @@ package org.zk;
 import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import org.apache.http.util.EntityUtils;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
-import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.*;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,16 +25,18 @@ import java.util.Date;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class EsTest {
+public class RestHighLevelClientTest {
 
     @Autowired
     private RestHighLevelClient restHighLevelClient;
 
+
+
     @Test
     public void insert() throws Exception {
         UserDoc userDoc = new UserDoc();
-        userDoc.setUserId(1L);
-        // userDoc.setUsername("zk5");
+        userDoc.setUserId(2L);
+         userDoc.setUsername("zk2");
         userDoc.setBirthday(new Date());
         IndexRequest indexRequest = new IndexRequest("user");
         // 时间转换问题
@@ -74,4 +76,6 @@ public class EsTest {
         System.out.println(JSON.toJSONString(userDoc));
         System.out.println(JSON.toJSONString(userDoc, SerializerFeature.WriteMapNullValue));
     }
+
+
 }
