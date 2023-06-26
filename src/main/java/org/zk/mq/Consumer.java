@@ -26,31 +26,9 @@ public class Consumer {
         System.out.println("ok");
     }
 
-    @JmsListener(destination = "HelloWorldQueue")
-    public void receiveQueue(Message msg)  throws Exception {
+    @JmsListener(destination = "demo-queue")
+    public void onMessage(Message msg)  throws Exception {
         log.info("message arrive: {}", msg);
         Thread.sleep(500);
-//        batchProcess(msg);
-    }
-
-    private void batchProcess(TextMessage msg) {
-        list.add(msg);
-        if (list.size() >= 5) {
-            log.info("start batch:");
-            Iterator<TextMessage> it = list.iterator();
-            while(it.hasNext()) {
-                process(it.next());
-                it.remove();
-            }
-        }
-    }
-
-    private void process(TextMessage msg) {
-        try {
-            log.info("process: {}", msg.getText());
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

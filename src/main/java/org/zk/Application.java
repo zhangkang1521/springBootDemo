@@ -1,24 +1,13 @@
 package org.zk;
 
-import org.apache.activemq.command.ActiveMQQueue;
-import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.jms.annotation.EnableJms;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.jms.Queue;
-import javax.jms.Topic;
 
 /**
  * Created by zhangkang on 2017/1/12.
  */
 @SpringBootApplication
-@EnableJms
+//@EnableJms (可以不用配置，会自动配置，参考JmsAnnotationDrivenConfiguration)
 public class Application {
 
 
