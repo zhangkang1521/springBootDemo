@@ -1,7 +1,9 @@
 package org.zk;
 
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -10,10 +12,13 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ApplicationTest {
+public class SpringRocketMqTest {
+
+    @Autowired
+    private RocketMQTemplate rocketMQTemplate;
 
     @Test
-    public void test1() {
-        System.out.println("hello");
+    public void send() {
+        rocketMQTemplate.convertAndSend("demo-topic", "hello");
     }
 }

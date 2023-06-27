@@ -24,18 +24,9 @@ public class UserController {
     private RocketMQTemplate rocketMQTemplate;
 
 
-    @RequestMapping("/")
-    public String index() {
-        // 设置header无效，topic:xx这种指定tag?
-        for (int i = 0; i < 3; i++) {
-            Message message = MessageBuilder.withPayload("hello-a-" + i)
-//                    .setHeader(RocketMQHeaders.QUEUE_ID, 0)
-//                    .setHeader(RocketMQHeaders.KEYS, "a")
-//                    .setHeader(RocketMQHeaders.TAGS, "xx")
-                    .build();
-            rocketMQTemplate.send("demo-topic-2:xx", message);
-        }
-        return "ok";
+    @RequestMapping("/send")
+    public void index() {
+        rocketMQTemplate.convertAndSend("demo-topic", "hello");
     }
 
     @RequestMapping("/order")
