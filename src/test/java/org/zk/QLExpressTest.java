@@ -6,9 +6,7 @@ import com.ql.util.express.ExpressRunner;
 import org.junit.Test;
 import org.zk.utils.DeliverTimeUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class QLExpressTest {
 
@@ -93,5 +91,22 @@ public class QLExpressTest {
 		Object r = runner.execute(condition, context, null, true, false);
 		System.out.println(r);
 
+	}
+
+	@Test
+	public void conflict() throws Exception {
+		// 函数名与变量名冲突
+		// 程序错误，不满足语法规范，没有匹配到合适的语法,最大匹配致[0:0]
+		ExpressRunner runner = new ExpressRunner();
+
+		runner.addFunctionOfClassMethod("isIn", DeliverTimeUtils.class.getName(), "isIn", new Class[] {Date.class, String.class, String.class}, null);
+
+		DefaultContext<String, Object> context = new DefaultContext<String, Object>();
+
+		context.put("isIn", "xxx");
+
+		String express = "isIn";
+		Object r = runner.execute(express, context, null, false, false);
+		System.out.println(r);
 	}
 }
