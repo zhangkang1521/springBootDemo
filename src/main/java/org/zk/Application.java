@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * Created by zhangkang on 2017/1/12.
  */
-//@SpringBootApplication
+@SpringBootApplication
 public class Application {
 
     public static void main(String[] args) {

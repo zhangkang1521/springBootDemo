@@ -25,6 +25,7 @@ public class UserService {
         log.info("findUser from db, userId:{}", userId);
         User user = new User();
         user.setId(userId);
+//        user.setSex("M");
         return user;
     }
 }

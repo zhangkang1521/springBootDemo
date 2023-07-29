@@ -5,6 +5,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.zk.Application;
+import org.zk.model.User;
 
 import java.util.Arrays;
 
@@ -19,8 +21,9 @@ public class UserServiceTest {
 
 	@Test
 	public void findUser() {
-		userService.findUser(1L);
-		userService.findUser(1L);
+		User user = userService.findUser(1L);
+		System.out.println(user);
+		// userService.findUser(1L);
 	}
 
 }
