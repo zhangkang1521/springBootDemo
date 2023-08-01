@@ -15,14 +15,14 @@ public class User implements Serializable {
 	 * nested exception is java.io.InvalidClassException: org.zk.model.User;
 	 * local class incompatible: stream classdesc serialVersionUID = 1, local class serialVersionUID = 3763359144362764013
 	 */
-	 private static final long serialVersionUID = 3763359144362764013L;
+	 // private static final long serialVersionUID = 3763359144362764013L;
 
 
 	private Long id;
 
 	private String username;
 
-//	private String sex;
+	private String sex;
 
 
 }

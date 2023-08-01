@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class Application {
 
     public static void main(String[] args) {
-        String str = "delete from delivery_performance_order_%04d where performance_order_status = 10;";
-        for (int i = 128*3; i < 128*4; i++) {
-            System.out.println(String.format(str, i));
-        }
+        SpringApplication.run(Application.class, args);
     }
 }
