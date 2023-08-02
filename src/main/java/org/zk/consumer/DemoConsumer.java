@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.stereotype.Component;
+import org.zk.dto.UserDto;
 
 /**
  * @author zhangkang
@@ -17,11 +18,11 @@ import org.springframework.stereotype.Component;
 //        selectorExpression = "xx"
 )
 @Slf4j
-@Component
-public class DemoConsumer implements RocketMQListener<String> {
+//@Component
+public class DemoConsumer implements RocketMQListener<UserDto> {
 
     @Override
-    public void onMessage(String body) {
+    public void onMessage(UserDto body) {
         log.info("收到消息 {}", body);
     }
 }
